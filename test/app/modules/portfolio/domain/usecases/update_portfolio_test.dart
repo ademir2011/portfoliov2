@@ -11,11 +11,11 @@ void main() {
     final updatePortfolioRepositoryMock = UpdatePortfolioRepositoryMock();
 
     final testPortfolio = Portfolio(
+      id: '123',
       userId: '123',
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
       title: 'teste',
-      projects: [],
     );
 
     when(() => updatePortfolioRepositoryMock.updatePortfolio(portfolio: testPortfolio))

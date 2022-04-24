@@ -11,6 +11,8 @@ void main() {
     final saveProjectRepositoryMock = SaveProjectRepositoryMock();
 
     final testProject = Project(
+      id: '123',
+      portfolioId: '123',
       userId: '123',
       name: 'Whallet',
       description: 'teste',

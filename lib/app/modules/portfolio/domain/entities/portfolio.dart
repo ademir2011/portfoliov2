@@ -1,16 +1,14 @@
-import 'package:portfoliov2/app/modules/portfolio/domain/entities/project.dart';
-
 class Portfolio {
+  final String id;
   final String userId;
   final DateTime createdAt;
   final DateTime updatedAt;
   final String title;
-  List<Project>? projects;
   Portfolio({
+    required this.id,
     required this.userId,
     required this.createdAt,
     required this.updatedAt,
     required this.title,
-    required this.projects,
   });
 }

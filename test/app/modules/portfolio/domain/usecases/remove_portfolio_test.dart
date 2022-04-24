@@ -11,11 +11,11 @@ void main() {
     final removePortfolioRepositoryMock = RemovePortfolioRepositoryMock();
 
     final testPortfolio = Portfolio(
+      id: '123',
       userId: '123',
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
       title: 'teste',
-      projects: [],
     );
 
     when(() => removePortfolioRepositoryMock.removePortfolio(portfolio: testPortfolio))

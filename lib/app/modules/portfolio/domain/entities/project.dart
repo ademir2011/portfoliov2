@@ -1,5 +1,7 @@
 class Project {
+  final String id;
   final String userId;
+  final String portfolioId;
   final DateTime createdAt;
   final DateTime updatedAt;
   final String name;
@@ -9,7 +11,9 @@ class Project {
   final String urlVideo;
 
   Project({
+    required this.id,
     required this.userId,
+    required this.portfolioId,
     required this.createdAt,
     required this.updatedAt,
     required this.name,
