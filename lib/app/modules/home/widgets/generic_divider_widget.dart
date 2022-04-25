@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 class GenericDividerWidget extends StatelessWidget {
   final double height;
   final double width;
+  final bool vertical;
 
   const GenericDividerWidget({
     Key? key,
     this.height = 1.5,
     this.width = 100,
+    this.vertical = false,
   }) : super(key: key);
 
   @override
@@ -21,6 +23,8 @@ class GenericDividerWidget extends StatelessWidget {
             Theme.of(context).colorScheme.secondary,
             Theme.of(context).colorScheme.tertiary,
           ],
+          begin: vertical ? Alignment.topCenter : Alignment.centerLeft,
+          end: vertical ? Alignment.bottomCenter : Alignment.centerRight,
         ),
         boxShadow: [
           BoxShadow(

@@ -17,7 +17,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: Column(
         children: [
-          const TopMenuWidget(),
+          const TopMenuWidget(topMenuEnum: TopMenuEnum.inicio),
           Expanded(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:portfoliov2/app/modules/home/widgets/generic_divider_widget.dart';
 
+enum TopMenuEnum { inicio, dashboard, projetos, trajetoria, certificacoes }
+
 class TopMenuWidget extends StatelessWidget {
+  final TopMenuEnum topMenuEnum;
   const TopMenuWidget({
     Key? key,
+    required this.topMenuEnum,
   }) : super(key: key);
 
   @override
@@ -24,49 +28,72 @@ class TopMenuWidget extends StatelessWidget {
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.only(left: 8),
-                child: GenericDividerWidget(width: 50),
+              if (topMenuEnum == TopMenuEnum.inicio)
+                const Padding(
+                  padding: EdgeInsets.only(left: 8),
+                  child: GenericDividerWidget(width: 50),
+                ),
+            ],
+          ),
+          const SizedBox(width: 40),
+          Column(
+            children: [
+              TextButton(
+                onPressed: null,
+                child: Text(
+                  'DASHBOARD',
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                        color: Theme.of(context).colorScheme.primary.withOpacity(0.5),
+                      ),
+                ),
               ),
             ],
           ),
           const SizedBox(width: 40),
-          TextButton(
-            onPressed: null,
-            child: Text(
-              'DASHBOARD',
-              style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                    color: Theme.of(context).colorScheme.primary.withOpacity(0.5),
-                  ),
-            ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TextButton(
+                onPressed: () => Modular.to.navigate('/portfolio/'),
+                child: Text(
+                  'PROJETOS',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+              ),
+              if (topMenuEnum == TopMenuEnum.projetos)
+                const Padding(
+                  padding: EdgeInsets.only(left: 8),
+                  child: GenericDividerWidget(width: 75),
+                ),
+            ],
           ),
           const SizedBox(width: 40),
-          TextButton(
-            onPressed: () {},
-            child: Text(
-              'PROJETOS',
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
+          Column(
+            children: [
+              TextButton(
+                onPressed: null,
+                child: Text(
+                  'TRAJETÓRIA',
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                        color: Theme.of(context).colorScheme.primary.withOpacity(0.5),
+                      ),
+                ),
+              ),
+            ],
           ),
           const SizedBox(width: 40),
-          TextButton(
-            onPressed: null,
-            child: Text(
-              'TRAJETÓRIA',
-              style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                    color: Theme.of(context).colorScheme.primary.withOpacity(0.5),
-                  ),
-            ),
-          ),
-          const SizedBox(width: 40),
-          TextButton(
-            onPressed: null,
-            child: Text(
-              'CERTIFICAÇÕES',
-              style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                    color: Theme.of(context).colorScheme.primary.withOpacity(0.5),
-                  ),
-            ),
+          Column(
+            children: [
+              TextButton(
+                onPressed: null,
+                child: Text(
+                  'CERTIFICAÇÕES',
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                        color: Theme.of(context).colorScheme.primary.withOpacity(0.5),
+                      ),
+                ),
+              ),
+            ],
           ),
         ],
       ),
