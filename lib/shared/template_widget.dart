@@ -6,10 +6,12 @@ import 'package:portfoliov2/app/modules/home/widgets/top_menu_widget.dart';
 class TemplateWidget extends StatelessWidget {
   final String title;
   final Widget child;
+  final void Function()? backButtonOnPress;
   const TemplateWidget({
     Key? key,
     required this.title,
     required this.child,
+    this.backButtonOnPress,
   }) : super(key: key);
 
   @override
@@ -65,26 +67,40 @@ class TemplateWidget extends StatelessWidget {
                   vertical: true,
                 ),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 63),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 50),
-                    child: Text(
-                      title,
-                      style: Theme.of(context).textTheme.titleLarge,
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 63),
+                    Padding(
+                      padding: EdgeInsets.only(left: backButtonOnPress != null ? 0 : 50),
+                      child: Row(
+                        children: [
+                          if (backButtonOnPress != null)
+                            TextButton(
+                              onPressed: backButtonOnPress,
+                              child: Text(
+                                '<',
+                                style: Theme.of(context).textTheme.titleLarge,
+                              ),
+                            ),
+                          Text(
+                            title,
+                            style: Theme.of(context).textTheme.titleLarge,
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 10),
-                  const GenericDividerWidget(
-                    width: 300,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 50, top: 50),
-                    child: child,
-                  ),
-                ],
+                    const SizedBox(height: 10),
+                    const GenericDividerWidget(
+                      width: 300,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 50, top: 50),
+                      child: child,
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

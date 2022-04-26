@@ -46,23 +46,23 @@ class _AppWidgetState extends State<AppWidget> {
           titleMedium: TextStyle(
             fontFamily: 'Syncopate',
             fontWeight: FontWeight.w300,
-            fontSize: 15,
+            fontSize: 17.5,
             color: Color(0xffECECEC),
             shadows: [BoxShadow(color: Color(0xffECECEC), blurRadius: 3)],
           ),
           bodyLarge: TextStyle(
             fontFamily: 'Syncopate',
-            fontSize: 15,
+            fontSize: 20,
             color: Color(0xffECECEC),
           ),
           bodyMedium: TextStyle(
             fontFamily: 'Syncopate',
-            fontSize: 12,
+            fontSize: 12.5,
             color: Color(0xffECECEC),
           ),
           bodySmall: TextStyle(
             fontFamily: 'SyncopateBold',
-            fontSize: 12,
+            fontSize: 12.5,
             color: Color(0xffECECEC),
           ),
         ),

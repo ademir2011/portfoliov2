@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 
-class RingWidget extends StatelessWidget {
-  final Widget child;
+class VideoTemplateWidget extends StatelessWidget {
   final double width;
   final double height;
-  const RingWidget({
+
+  const VideoTemplateWidget({
     Key? key,
-    required this.width,
-    required this.height,
-    required this.child,
+    this.width = 300,
+    this.height = 600,
   }) : super(key: key);
 
   @override
@@ -17,15 +16,16 @@ class RingWidget extends StatelessWidget {
       alignment: Alignment.center,
       children: [
         Container(
-          width: width + 5,
-          height: height + 5,
+          width: width,
+          height: height,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(100),
             gradient: LinearGradient(
               colors: [
                 Theme.of(context).colorScheme.secondary,
                 Theme.of(context).colorScheme.tertiary,
               ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
             ),
             boxShadow: [
               BoxShadow(
@@ -40,23 +40,21 @@ class RingWidget extends StatelessWidget {
           ),
         ),
         Container(
-          width: width,
-          height: height,
+          width: width - 2.5,
+          height: height - 2.5,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(100),
             boxShadow: [
               BoxShadow(
                 color: Theme.of(context).colorScheme.tertiary.withOpacity(.5),
               ),
               BoxShadow(
                 color: Theme.of(context).scaffoldBackgroundColor,
-                blurRadius: 5,
-                spreadRadius: -3,
+                blurRadius: 10,
+                spreadRadius: -2,
               ),
             ],
           ),
         ),
-        child,
       ],
     );
   }
