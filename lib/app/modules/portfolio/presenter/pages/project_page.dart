@@ -3,6 +3,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:portfoliov2/app/modules/home/widgets/generic_divider_widget.dart';
 import 'package:portfoliov2/app/modules/portfolio/presenter/widgets/tag_widget.dart';
 import 'package:portfoliov2/app/modules/portfolio/presenter/widgets/video_template_widget.dart';
+import 'package:portfoliov2/shared/icon_link_widget.dart';
 import 'package:portfoliov2/shared/template_widget.dart';
 
 class ProjectPage extends StatefulWidget {
@@ -44,24 +45,10 @@ class _ProjectPageState extends State<ProjectPage> {
                   title: 'BLOC',
                 ),
                 const SizedBox(height: 30),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).scaffoldBackgroundColor,
-                    borderRadius: BorderRadius.circular(50),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Theme.of(context).colorScheme.primary,
-                        blurRadius: 5,
-                      ),
-                    ],
-                  ),
-                  child: const Padding(
-                    padding: EdgeInsets.all(5),
-                    child: Icon(
-                      Icons.facebook,
-                      size: 30,
-                    ),
-                  ),
+                IconLinkWidget(
+                  onPressed: () {},
+                  color: Theme.of(context).colorScheme.surfaceVariant,
+                  pathAssetIcon: 'lib\\assets\\icons\\play-store.png',
                 ),
               ],
             ),

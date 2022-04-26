@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:portfoliov2/app/modules/home/widgets/generic_divider_widget.dart';
 import 'package:portfoliov2/app/modules/home/widgets/ring_widget.dart';
 import 'package:portfoliov2/app/modules/home/widgets/top_menu_widget.dart';
+import 'package:portfoliov2/shared/icon_link_widget.dart';
 
 class TemplateWidget extends StatelessWidget {
   final String title;
@@ -56,6 +57,27 @@ class TemplateWidget extends StatelessWidget {
                       style: Theme.of(context).textTheme.bodyMedium,
                       textAlign: TextAlign.center,
                     ),
+                    const SizedBox(height: 150),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        IconLinkWidget(
+                          onPressed: () {},
+                          color: const Color(0xffE95950),
+                          pathAssetIcon: 'lib\\assets\\icons\\instagram.png',
+                        ),
+                        IconLinkWidget(
+                          onPressed: () {},
+                          color: const Color(0xff0981CC),
+                          pathAssetIcon: 'lib\\assets\\icons\\linkedin.png',
+                        ),
+                        IconLinkWidget(
+                          onPressed: () {},
+                          color: const Color(0xffE5E5E5),
+                          pathAssetIcon: 'lib\\assets\\icons\\github.png',
+                        ),
+                      ],
+                    )
                   ],
                 ),
               ),
