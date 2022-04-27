@@ -1,14 +1,15 @@
 class Portfolio {
-  final String id;
-  final String userId;
-  final DateTime createdAt;
-  final DateTime updatedAt;
-  final String title;
+  final String? id;
+  final String? userId;
+  final DateTime? createdAt;
+  DateTime? updatedAt;
+  String title;
+
   Portfolio({
-    required this.id,
-    required this.userId,
-    required this.createdAt,
-    required this.updatedAt,
+    this.id,
+    this.userId,
+    this.createdAt,
+    this.updatedAt,
     required this.title,
   });
 }
