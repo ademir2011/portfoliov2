@@ -2,9 +2,9 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:portfoliov2/app/modules/portfolio/domain/usecases/fetch_portfolios.dart';
-import 'package:portfoliov2/app/modules/portfolio/presenter/bloc/portfolio_bloc.dart';
-import 'package:portfoliov2/app/modules/portfolio/presenter/bloc/portfolio_event.dart';
-import 'package:portfoliov2/app/modules/portfolio/presenter/bloc/portfolio_state.dart';
+import 'package:portfoliov2/app/modules/portfolio/presenter/portfolio/bloc/portfolio_bloc.dart';
+import 'package:portfoliov2/app/modules/portfolio/presenter/portfolio/bloc/portfolio_event.dart';
+import 'package:portfoliov2/app/modules/portfolio/presenter/portfolio/bloc/portfolio_state.dart';
 
 class FetchPortfoliosMock extends Mock implements FetchPortfolios {}
 

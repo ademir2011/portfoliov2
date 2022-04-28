@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portfoliov2/app/modules/portfolio/domain/usecases/fetch_portfolios.dart';
-import 'package:portfoliov2/app/modules/portfolio/presenter/bloc/portfolio_event.dart';
-import 'package:portfoliov2/app/modules/portfolio/presenter/bloc/portfolio_state.dart';
+import 'package:portfoliov2/app/modules/portfolio/presenter/portfolio/bloc/portfolio_event.dart';
+import 'package:portfoliov2/app/modules/portfolio/presenter/portfolio/bloc/portfolio_state.dart';
 
 class PortfolioBloc extends Bloc<PortfolioEvent, PortfolioState> {
   final FetchPortfolios fetchPortfolios;
