@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:portfoliov2/app/modules/home/widgets/generic_divider_widget.dart';
+import 'package:portfoliov2/app/modules/portfolio/presenter/bloc/portfolio_bloc.dart';
 import 'package:portfoliov2/app/modules/portfolio/presenter/widgets/project_button_widget.dart';
 import 'package:portfoliov2/shared/template_widget.dart';
 
@@ -12,6 +13,7 @@ class PortfolioPage extends StatefulWidget {
 }
 
 class _PortfolioPageState extends State<PortfolioPage> {
+  final portfolioBloc = Modular.get<PortfolioBloc>();
   @override
   Widget build(BuildContext context) {
     return TemplateWidget(
