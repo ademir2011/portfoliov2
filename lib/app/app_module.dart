@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:portfoliov2/app/modules/administracao/administracao_module.dart';
 import 'package:portfoliov2/app/modules/home/pages/home_page.dart';
 import 'package:portfoliov2/app/modules/home/pages/sidemenu_page.dart';
 import 'package:portfoliov2/shared/top_menu_widget.dart';
@@ -23,5 +24,6 @@ class AppModule extends Module {
           ),
         ),
         ModuleRoute('/portfolio', module: PortfolioModule()),
+        ModuleRoute('/administracao', module: AdministracaoModule()),
       ];
 }

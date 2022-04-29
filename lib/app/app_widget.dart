@@ -18,6 +18,7 @@ class _AppWidgetState extends State<AppWidget> {
       darkTheme: ThemeData.dark().copyWith(
         colorScheme: const ColorScheme.dark(
           primary: Color(0xffECECEC),
+          inversePrimary: Color(0xFF323238),
           secondary: Color(0xff1F51FF),
           tertiary: Color(0xffFE019A),
           surfaceVariant: Color(0xff8FFCFF),
