@@ -33,7 +33,7 @@ class _PortfolioPageState extends State<PortfolioPage> {
       topMenuEnum: TopMenuEnum.projetos,
       title: 'PROJETOS',
       child: Padding(
-        padding: const EdgeInsets.only(top: 50, left: 40, right: 40),
+        padding: const EdgeInsets.all(40),
         child: BlocBuilder<PortfolioBloc, PortfolioState>(
           bloc: portfolioBloc,
           builder: (ctx, state) {

@@ -27,34 +27,29 @@ class _ProjectPageState extends State<ProjectPage> {
       title: 'PROJETOS',
       topMenuEnum: TopMenuEnum.projetos,
       backButtonOnPress: () => Modular.to.navigate('/portfolio/'),
-      child: Expanded(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 50, left: 40, right: 50),
-          child: size.width > 1000
-              ? Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Flexible(
-                      child: ContentWidget(
-                        project: widget.project,
-                      ),
+      child: Padding(
+        padding: const EdgeInsets.all(40),
+        child: size.width > 1000
+            ? Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Flexible(
+                    child: ContentWidget(
+                      project: widget.project,
                     ),
-                    const SizedBox(width: 25),
-                    const VideoTemplateWidget(height: 500, width: 275),
-                  ],
-                )
-              : SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      ContentWidget(
-                        project: widget.project,
-                      ),
-                      const VideoTemplateWidget(height: 500, width: 275),
-                    ],
                   ),
-                ),
-        ),
+                  const SizedBox(width: 25),
+                  const VideoTemplateWidget(height: 500, width: 275),
+                ],
+              )
+            : Column(
+                children: [
+                  ContentWidget(project: widget.project),
+                  const SizedBox(height: 25),
+                  const VideoTemplateWidget(height: 500, width: 275),
+                  const SizedBox(height: 25),
+                ],
+              ),
       ),
     );
   }
@@ -79,9 +74,13 @@ class ContentWidget extends StatelessWidget {
         const SizedBox(height: 5),
         const GenericDividerWidget(width: 75),
         const SizedBox(height: 25),
-        Text(
-          project.description.toString(),
-          style: Theme.of(context).textTheme.bodyMedium,
+        SizedBox(
+          height: 300,
+          width: 700,
+          child: Text(
+            project.description.toString(),
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
         ),
         const SizedBox(height: 50),
         const TagWidget(

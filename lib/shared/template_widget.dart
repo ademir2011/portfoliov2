@@ -24,22 +24,24 @@ class TemplateWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      body: Column(
-        children: [
-          if (size.width > 1000) TopMenuWidget(topMenuEnum: topMenuEnum),
-          if (subtemplate && size.width > 1000)
-            SubTemplateWidget(
-              backButtonOnPress: backButtonOnPress,
-              title: title,
-              child: child,
-            ),
-          if (size.width <= 1000)
-            SandwichIconMenuWidget(
-              title: title,
-              backButtonOnPress: backButtonOnPress,
-            ),
-          if (!subtemplate || size.width <= 1000) child,
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            if (size.width > 1000) TopMenuWidget(topMenuEnum: topMenuEnum),
+            if (subtemplate && size.width > 1000)
+              SubTemplateWidget(
+                backButtonOnPress: backButtonOnPress,
+                title: title,
+                child: child,
+              ),
+            if (size.width <= 1000)
+              SandwichIconMenuWidget(
+                title: title,
+                backButtonOnPress: backButtonOnPress,
+              ),
+            if (!subtemplate || size.width <= 1000) child,
+          ],
+        ),
       ),
     );
   }
@@ -130,15 +132,18 @@ class SubTemplateWidget extends StatelessWidget {
             children: [
               const SizedBox(height: 63),
               Padding(
-                padding: EdgeInsets.only(left: backButtonOnPress != null ? 0 : 50),
+                padding: EdgeInsets.only(left: backButtonOnPress != null ? 0 : 40),
                 child: Row(
                   children: [
                     if (backButtonOnPress != null)
-                      TextButton(
-                        onPressed: backButtonOnPress,
-                        child: Text(
-                          '<',
-                          style: Theme.of(context).textTheme.titleLarge,
+                      SizedBox(
+                        width: 40,
+                        child: TextButton(
+                          onPressed: backButtonOnPress,
+                          child: Text(
+                            '<',
+                            style: Theme.of(context).textTheme.titleLarge,
+                          ),
                         ),
                       ),
                     Text(
@@ -150,10 +155,7 @@ class SubTemplateWidget extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               const GenericDividerWidget(width: 300),
-              Padding(
-                padding: const EdgeInsets.only(left: 50, top: 50),
-                child: child,
-              ),
+              child,
             ],
           ),
         ),

@@ -7,7 +7,7 @@ import 'package:portfoliov2/app/modules/portfolio/infra/models/portfolio_model.d
 class FirebaseFetchPortfoliosDatasource implements IFetchPortfoliosDatasource {
   @override
   Future<List<Portfolio>> fetchPortfolios() async {
-    final listMap = await Future.delayed(const Duration(seconds: 1)).then((_) => jsonDecode(json)) as List;
+    final listMap = await Future.delayed(const Duration(milliseconds: 300)).then((_) => jsonDecode(json)) as List;
 
     final portfolios = listMap.map((e) => PortfolioModel.fromMap(e)).toList();
 

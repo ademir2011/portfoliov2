@@ -8,7 +8,9 @@ import 'package:portfoliov2/app/modules/portfolio/infra/models/project_model.dar
 class FirebaseGetProjectsByPortfolioDatasource implements IGetProjectsByPortfolioDatasource {
   @override
   Future<List<Project>> getProjectsByPortfolio({required Portfolio portfolio}) async {
-    final projectsMaps = await Future.delayed(const Duration(seconds: 1)).then((value) => jsonDecode(json)) as List;
+    final projectsMaps = await Future.delayed(const Duration(milliseconds: 300)).then(
+      (value) => jsonDecode(json),
+    ) as List;
 
     final List<Project> projectsList = projectsMaps.map((e) => ProjectModel.fromMap(e)).toList();
 

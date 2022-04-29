@@ -19,39 +19,38 @@ class _HomePageState extends State<HomePage> {
       title: 'HOME',
       topMenuEnum: TopMenuEnum.inicio,
       subtemplate: false,
-      child: Expanded(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            RingWidget(
-              width: 175,
-              height: 175,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(100),
-                child: Image.asset(
-                  'lib\\assets\\images\\eu.jpg',
-                  height: 150,
-                  width: 150,
-                  fit: BoxFit.cover,
-                ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const SizedBox(height: 125),
+          RingWidget(
+            width: 175,
+            height: 175,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(100),
+              child: Image.asset(
+                'lib\\assets\\images\\eu.jpg',
+                height: 150,
+                width: 150,
+                fit: BoxFit.cover,
               ),
             ),
-            const SizedBox(height: 125),
-            Text(
-              'ADEMIR',
-              style: Theme.of(context).textTheme.displayLarge,
-            ),
-            const SizedBox(height: 75),
-            const GenericDividerWidget(width: 100),
-            const SizedBox(height: 20),
-            Text(
-              'DESENVOLVEDOR\nFLUTTER',
-              style: Theme.of(context).textTheme.bodyLarge,
-              textAlign: TextAlign.center,
-            ),
-          ],
-        ),
+          ),
+          const SizedBox(height: 125),
+          Text(
+            'ADEMIR',
+            style: Theme.of(context).textTheme.displayLarge,
+          ),
+          const SizedBox(height: 75),
+          const GenericDividerWidget(width: 100),
+          const SizedBox(height: 20),
+          Text(
+            'DESENVOLVEDOR\nFLUTTER',
+            style: Theme.of(context).textTheme.bodyLarge,
+            textAlign: TextAlign.center,
+          ),
+        ],
       ),
     );
   }
