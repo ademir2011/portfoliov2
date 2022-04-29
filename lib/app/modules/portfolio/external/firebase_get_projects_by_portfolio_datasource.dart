@@ -25,7 +25,7 @@ const String json = '''
   "createdAt" : 1650644204,
   "updatedAt" : 1650644204,
   "name" : "WHALLET",
-  "name" : "dn12uidnu2ndu2nd u2nd u2n udn2u nd2und 2undu2 nu2ndu2nd2nud2n udn2u nd2u",
+  "description" : "dn12uidnu2ndu2nd u2nd u2n udn2u nd2und 2undu2 nu2ndu2nd2nud2n udn2u nd2u asdasdasd aud2n udn2u nd2u asdasdasd aud2n udn2u nd2u asdasdasd aud2n udn2u nd2u asdasdasd asd asd as",
   "tags" : [
     "BloC",
     "Animações"
@@ -43,7 +43,7 @@ const String json = '''
   "createdAt" : 1650644204,
   "updatedAt" : 1650644204,
   "name" : "WHALLET 2",
-  "name" : "dn12uidnu2nd2und 2undu2 nu2ndu2nd2nud2n udn2u21312312 nd2u",
+  "description" : "dn12uidnu2nd2und 2undu2 nu2ndu2nd2nud2n udn2u21312312 nd2u",
   "tags" : [
     "BloC",
     "Animações"
@@ -61,7 +61,7 @@ const String json = '''
   "createdAt" : 1650644204,
   "updatedAt" : 1650644204,
   "name" : "WHALLET 3",
-  "name" : "dn12uidnu2nd2und 2undu2 nu2ndu2nd2nud2n udn2u21312312 nd2u",
+  "description" : "dn12uidnu2nd2und 2undu2 nu2ndu2nd2nud2n udn2u21312312 nd2u",
   "tags" : [
     "BloC",
     "Animações"

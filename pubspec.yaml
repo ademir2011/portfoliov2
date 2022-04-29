@@ -70,6 +70,8 @@ flutter:
     - lib\assets\icons\instagram.png
     - lib\assets\icons\linkedin.png
     - lib\assets\icons\play-store.png
+    - lib\assets\icons\sidemenuicon.png
+    - lib\assets\icons\exiticon.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -1,4 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:portfoliov2/app/modules/portfolio/domain/entities/project.dart';
 import 'package:portfoliov2/app/modules/portfolio/domain/usecases/fetch_portfolios.dart';
 import 'package:portfoliov2/app/modules/portfolio/domain/usecases/get_projects_by_portfolio.dart';
 import 'package:portfoliov2/app/modules/portfolio/external/firebase_fetch_portfolios_datasource.dart';
@@ -26,7 +27,7 @@ class PortfolioModule extends Module {
           ),
         ),
         Bind.singleton((i) => GetProjectsByPortfolio(iGetProjectsByPortfolioRepository: i())),
-        Bind.singleton((i) => ProjectBloc(getProjectsByPortfolio: i())),
+        Bind.factory((i) => ProjectBloc(getProjectsByPortfolio: i())),
       ];
 
   @override
@@ -38,7 +39,7 @@ class PortfolioModule extends Module {
         ),
         ChildRoute(
           '/project',
-          child: (ctx, args) => const ProjectPage(),
+          child: (ctx, args) => ProjectPage(project: args.data as Project),
           transition: TransitionType.fadeIn,
         ),
       ];

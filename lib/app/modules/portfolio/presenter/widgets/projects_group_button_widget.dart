@@ -38,14 +38,26 @@ class _ProjectsGroupButtonWidgetState extends State<ProjectsGroupButtonWidget> {
           return const Center(child: CircularProgressIndicator());
         }
 
-        return Row(
-          children: [
-            ProjectButtonWidget(
-              title: 'WHALLET',
-              onTap: () => Modular.to.navigate('/portfolio/project'),
+        if (state is SuccessProjectState) {
+          return SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: state.projects.map((project) {
+                return Row(
+                  children: [
+                    ProjectButtonWidget(
+                      title: project.name.toString(),
+                      onTap: () => Modular.to.navigate('/portfolio/project', arguments: project),
+                    ),
+                    const SizedBox(width: 20),
+                  ],
+                );
+              }).toList(),
             ),
-          ],
-        );
+          );
+        }
+
+        return Container();
       },
     );
   }

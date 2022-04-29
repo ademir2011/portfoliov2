@@ -7,6 +7,7 @@ import 'package:portfoliov2/app/modules/portfolio/presenter/portfolio/bloc/portf
 import 'package:portfoliov2/app/modules/portfolio/presenter/portfolio/bloc/portfolio_state.dart';
 import 'package:portfoliov2/app/modules/portfolio/presenter/widgets/projects_group_button_widget.dart';
 import 'package:portfoliov2/shared/template_widget.dart';
+import 'package:portfoliov2/shared/top_menu_widget.dart';
 
 class PortfolioPage extends StatefulWidget {
   const PortfolioPage({Key? key}) : super(key: key);
@@ -29,18 +30,20 @@ class _PortfolioPageState extends State<PortfolioPage> {
   @override
   Widget build(BuildContext context) {
     return TemplateWidget(
+      topMenuEnum: TopMenuEnum.projetos,
       title: 'PROJETOS',
-      child: BlocBuilder<PortfolioBloc, PortfolioState>(
-        bloc: portfolioBloc,
-        builder: (ctx, state) {
-          if (state is LoadingPortfolioState) {
-            return const SizedBox(height: 600, child: Center(child: CircularProgressIndicator()));
-          }
+      child: Padding(
+        padding: const EdgeInsets.only(top: 50, left: 40, right: 40),
+        child: BlocBuilder<PortfolioBloc, PortfolioState>(
+          bloc: portfolioBloc,
+          builder: (ctx, state) {
+            if (state is LoadingPortfolioState) {
+              return const CircularProgressIndicator();
+            }
 
-          if (state is SuccessPortfolioState) {
-            return SizedBox(
-              height: 600,
-              child: ListView.builder(
+            if (state is SuccessPortfolioState) {
+              return ListView.builder(
+                shrinkWrap: true,
                 itemCount: state.portfolios.length,
                 itemBuilder: (ctx, index) {
                   return Column(
@@ -62,12 +65,12 @@ class _PortfolioPageState extends State<PortfolioPage> {
                     ],
                   );
                 },
-              ),
-            );
-          }
+              );
+            }
 
-          return Container();
-        },
+            return Container();
+          },
+        ),
       ),
     );
   }

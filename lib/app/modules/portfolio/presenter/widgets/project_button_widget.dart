@@ -14,8 +14,8 @@ class ProjectButtonWidget extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        width: 150,
-        height: 150,
+        width: 100,
+        height: 100,
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
@@ -28,9 +28,13 @@ class ProjectButtonWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(15),
         ),
         child: Center(
-          child: Text(
-            title,
-            style: Theme.of(context).textTheme.bodySmall,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Text(
+              title,
+              style: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 10),
+              textAlign: TextAlign.center,
+            ),
           ),
         ),
       ),
