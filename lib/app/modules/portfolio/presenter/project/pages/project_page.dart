@@ -4,9 +4,9 @@ import 'package:portfoliov2/app/modules/home/widgets/generic_divider_widget.dart
 import 'package:portfoliov2/app/modules/portfolio/domain/entities/project.dart';
 import 'package:portfoliov2/app/modules/portfolio/presenter/widgets/tag_widget.dart';
 import 'package:portfoliov2/app/modules/portfolio/presenter/widgets/video_template_widget.dart';
-import 'package:portfoliov2/shared/icon_link_widget.dart';
-import 'package:portfoliov2/shared/template_widget.dart';
-import 'package:portfoliov2/shared/top_menu_widget.dart';
+import 'package:portfoliov2/shared/widgets/icon_link_widget.dart';
+import 'package:portfoliov2/shared/widgets/template_widget.dart';
+import 'package:portfoliov2/shared/widgets/top_menu_widget.dart';
 
 class ProjectPage extends StatefulWidget {
   final Project project;

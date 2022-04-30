@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:portfoliov2/app/modules/home/widgets/generic_divider_widget.dart';
 import 'package:portfoliov2/app/modules/home/widgets/ring_widget.dart';
-import 'package:portfoliov2/shared/template_widget.dart';
-import 'package:portfoliov2/shared/top_menu_widget.dart';
+import 'package:portfoliov2/shared/widgets/template_widget.dart';
+import 'package:portfoliov2/shared/widgets/top_menu_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -20,10 +20,7 @@ class _HomePageState extends State<HomePage> {
       topMenuEnum: TopMenuEnum.inicio,
       subtemplate: false,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const SizedBox(height: 125),
           RingWidget(
             width: 175,
             height: 175,

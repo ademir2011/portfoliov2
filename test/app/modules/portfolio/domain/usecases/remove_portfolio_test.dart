@@ -1,14 +1,14 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:portfoliov2/app/modules/portfolio/domain/entities/portfolio.dart';
-import 'package:portfoliov2/app/modules/portfolio/domain/repositories/remove_portfolio_repository_interface.dart';
+import 'package:portfoliov2/app/modules/portfolio/domain/repositories/portfolio_repository_interface.dart';
 import 'package:portfoliov2/app/modules/portfolio/domain/usecases/remove_portfolio.dart';
 
-class RemovePortfolioRepositoryMock extends Mock implements IRemovePortfolioRepository {}
+class PortfolioRepositoryMock extends Mock implements IPortfolioRepository {}
 
 void main() {
   test('Remover portfolio sem causar erros ou exceções', () async {
-    final removePortfolioRepositoryMock = RemovePortfolioRepositoryMock();
+    final portfolioRepositoryMock = PortfolioRepositoryMock();
 
     final testPortfolio = Portfolio(
       id: '123',
@@ -18,10 +18,10 @@ void main() {
       title: 'teste',
     );
 
-    when(() => removePortfolioRepositoryMock.removePortfolio(portfolio: testPortfolio))
+    when(() => portfolioRepositoryMock.removePortfolio(portfolio: testPortfolio))
         .thenAnswer((_) async => Future.value());
 
-    final removePortfolio = RemovePortfolio(iRemovePortfolioRepository: removePortfolioRepositoryMock);
+    final removePortfolio = RemovePortfolio(iPortfolioRepository: portfolioRepositoryMock);
 
     final response = removePortfolio.removePortfolio(portfolio: testPortfolio);
 

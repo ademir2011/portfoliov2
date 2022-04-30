@@ -6,8 +6,8 @@ import 'package:portfoliov2/app/modules/portfolio/presenter/portfolio/bloc/portf
 import 'package:portfoliov2/app/modules/portfolio/presenter/portfolio/bloc/portfolio_event.dart';
 import 'package:portfoliov2/app/modules/portfolio/presenter/portfolio/bloc/portfolio_state.dart';
 import 'package:portfoliov2/app/modules/portfolio/presenter/widgets/projects_group_button_widget.dart';
-import 'package:portfoliov2/shared/template_widget.dart';
-import 'package:portfoliov2/shared/top_menu_widget.dart';
+import 'package:portfoliov2/shared/widgets/template_widget.dart';
+import 'package:portfoliov2/shared/widgets/top_menu_widget.dart';
 
 class PortfolioPage extends StatefulWidget {
   const PortfolioPage({Key? key}) : super(key: key);

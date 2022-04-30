@@ -1,14 +1,14 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:portfoliov2/app/modules/portfolio/domain/entities/portfolio.dart';
-import 'package:portfoliov2/app/modules/portfolio/domain/repositories/update_portfolio_repository_interface.dart';
+import 'package:portfoliov2/app/modules/portfolio/domain/repositories/portfolio_repository_interface.dart';
 import 'package:portfoliov2/app/modules/portfolio/domain/usecases/update_portfolio.dart';
 
-class UpdatePortfolioRepositoryMock extends Mock implements IUpdatePortfolioRepository {}
+class PortfolioRepositoryMock extends Mock implements IPortfolioRepository {}
 
 void main() {
   test('Deve atualizar o portfolio sem erros', () async {
-    final updatePortfolioRepositoryMock = UpdatePortfolioRepositoryMock();
+    final portfolioRepositoryMock = PortfolioRepositoryMock();
 
     final testPortfolio = Portfolio(
       id: '123',
@@ -18,10 +18,10 @@ void main() {
       title: 'teste',
     );
 
-    when(() => updatePortfolioRepositoryMock.updatePortfolio(portfolio: testPortfolio))
+    when(() => portfolioRepositoryMock.updatePortfolio(portfolio: testPortfolio))
         .thenAnswer((_) async => Future.value());
 
-    final updatePortfolio = UpdatePortfolio(iUpdatePortfolioRepository: updatePortfolioRepositoryMock);
+    final updatePortfolio = UpdatePortfolio(iPortfolioRepository: portfolioRepositoryMock);
 
     final response = updatePortfolio.updatePortfolio(portfolio: testPortfolio);
 

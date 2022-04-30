@@ -1,14 +1,14 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:portfoliov2/app/modules/portfolio/domain/entities/project.dart';
-import 'package:portfoliov2/app/modules/portfolio/domain/repositories/update_project_repository_interface.dart';
 import 'package:portfoliov2/app/modules/portfolio/domain/usecases/update_project.dart';
+import 'package:portfoliov2/app/modules/portfolio/infra/repositories/project_repository.dart';
 
-class UpdateProjectRepositoryMock extends Mock implements IUpdateProjectRepository {}
+class ProjectRepositoryyMock extends Mock implements ProjectRepository {}
 
 void main() {
   test('Deve atualizar o portfolio sem erros', () async {
-    final updateProjectRepositoryMock = UpdateProjectRepositoryMock();
+    final projectRepositoryyMock = ProjectRepositoryyMock();
 
     final testProject = Project(
       id: '123',
@@ -23,9 +23,9 @@ void main() {
       updatedAt: DateTime.now(),
     );
 
-    when(() => updateProjectRepositoryMock.updateProject(project: testProject)).thenAnswer((_) async => Future.value());
+    when(() => projectRepositoryyMock.updateProject(project: testProject)).thenAnswer((_) async => Future.value());
 
-    final updateProject = UpdateProject(iUpdateProjectRepository: updateProjectRepositoryMock);
+    final updateProject = UpdateProject(iProjectRepository: projectRepositoryyMock);
 
     final response = updateProject.updateProject(project: testProject);
 

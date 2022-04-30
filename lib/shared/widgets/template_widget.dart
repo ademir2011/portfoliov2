@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:portfoliov2/app/modules/home/widgets/generic_divider_widget.dart';
 import 'package:portfoliov2/app/modules/home/widgets/ring_widget.dart';
-import 'package:portfoliov2/shared/top_menu_widget.dart';
-import 'package:portfoliov2/shared/icon_link_widget.dart';
+import 'package:portfoliov2/shared/widgets/top_menu_widget.dart';
+import 'package:portfoliov2/shared/widgets/icon_link_widget.dart';
 
 class TemplateWidget extends StatelessWidget {
   final String title;
@@ -11,6 +11,7 @@ class TemplateWidget extends StatelessWidget {
   final bool subtemplate;
   final TopMenuEnum topMenuEnum;
   final void Function()? backButtonOnPress;
+  final bool centered;
   const TemplateWidget({
     Key? key,
     required this.child,
@@ -18,30 +19,38 @@ class TemplateWidget extends StatelessWidget {
     this.title = '',
     this.subtemplate = true,
     this.backButtonOnPress,
+    this.centered = true,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            if (size.width > 1000) TopMenuWidget(topMenuEnum: topMenuEnum),
-            if (subtemplate && size.width > 1000)
-              SubTemplateWidget(
+      body: Column(
+        children: [
+          if (size.width > 1000) TopMenuWidget(topMenuEnum: topMenuEnum),
+          if (subtemplate && size.width > 1000)
+            SingleChildScrollView(
+              child: SubTemplateWidget(
                 backButtonOnPress: backButtonOnPress,
                 title: title,
                 child: child,
               ),
-            if (size.width <= 1000)
-              SandwichIconMenuWidget(
-                title: title,
-                backButtonOnPress: backButtonOnPress,
-              ),
-            if (!subtemplate || size.width <= 1000) child,
-          ],
-        ),
+            ),
+          if (size.width <= 1000)
+            SandwichIconMenuWidget(
+              title: title,
+              backButtonOnPress: backButtonOnPress,
+            ),
+          if (!subtemplate || size.width <= 1000)
+            Expanded(
+              child: centered
+                  ? Center(
+                      child: SingleChildScrollView(child: child),
+                    )
+                  : SingleChildScrollView(child: child),
+            ),
+        ],
       ),
     );
   }

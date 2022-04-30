@@ -1,14 +1,14 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:portfoliov2/app/modules/portfolio/domain/entities/portfolio.dart';
-import 'package:portfoliov2/app/modules/portfolio/domain/repositories/get_projects_by_portfolio_repository_interface.dart';
+import 'package:portfoliov2/app/modules/portfolio/domain/repositories/project_repository_interface.dart';
 import 'package:portfoliov2/app/modules/portfolio/domain/usecases/get_projects_by_portfolio.dart';
 
-class GetProjectsByPortfolioRepositoryMock extends Mock implements IGetProjectsByPortfolioRepository {}
+class ProjectRepositoryMock extends Mock implements IProjectRepository {}
 
 void main() {
   testWidgets('get projects by portfolio ...', (tester) async {
-    final getProjectsByPortfolioRepositoryMock = GetProjectsByPortfolioRepositoryMock();
+    final projectRepositoryMock = ProjectRepositoryMock();
 
     final testPortfolio = Portfolio(
       id: '123',
@@ -18,11 +18,9 @@ void main() {
       title: 'teste',
     );
 
-    when(() => getProjectsByPortfolioRepositoryMock.getProjectsByPortfolio(portfolio: testPortfolio))
-        .thenAnswer((_) async => []);
+    when(() => projectRepositoryMock.getProjectsByPortfolio(portfolio: testPortfolio)).thenAnswer((_) async => []);
 
-    final getProjectsByPortfolio =
-        GetProjectsByPortfolio(iGetProjectsByPortfolioRepository: getProjectsByPortfolioRepositoryMock);
+    final getProjectsByPortfolio = GetProjectsByPortfolio(iProjectRepository: projectRepositoryMock);
 
     final response = getProjectsByPortfolio.getProjectsByPortfolio(portfolio: testPortfolio);
 

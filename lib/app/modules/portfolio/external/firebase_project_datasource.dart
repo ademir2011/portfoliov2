@@ -2,10 +2,10 @@ import 'dart:convert';
 
 import 'package:portfoliov2/app/modules/portfolio/domain/entities/portfolio.dart';
 import 'package:portfoliov2/app/modules/portfolio/domain/entities/project.dart';
-import 'package:portfoliov2/app/modules/portfolio/infra/datasources/get_projects_by_portfolio_datasource_interface.dart';
+import 'package:portfoliov2/app/modules/portfolio/infra/datasources/project_datasource_interface.dart';
 import 'package:portfoliov2/app/modules/portfolio/infra/models/project_model.dart';
 
-class FirebaseGetProjectsByPortfolioDatasource implements IGetProjectsByPortfolioDatasource {
+class FirebaseProjectDatasource implements IProjectDatasource {
   @override
   Future<List<Project>> getProjectsByPortfolio({required Portfolio portfolio}) async {
     final projectsMaps = await Future.delayed(const Duration(milliseconds: 300)).then(
@@ -15,6 +15,24 @@ class FirebaseGetProjectsByPortfolioDatasource implements IGetProjectsByPortfoli
     final List<Project> projectsList = projectsMaps.map((e) => ProjectModel.fromMap(e)).toList();
 
     return projectsList.where((element) => element.portfolioId == portfolio.id).toList();
+  }
+
+  @override
+  Future<void> removeProject({required Project project}) {
+    // TODO: implement removeProject
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> saveProject({required Project project}) {
+    // TODO: implement saveProject
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> updateProject({required Project project}) {
+    // TODO: implement updateProject
+    throw UnimplementedError();
   }
 }
 

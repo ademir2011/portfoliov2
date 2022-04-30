@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:portfoliov2/app/modules/home/widgets/generic_divider_widget.dart';
 
-enum TopMenuEnum { inicio, dashboard, projetos, trajetoria, certificacoes }
+enum TopMenuEnum { inicio, dashboard, projetos, trajetoria, certificacoes, administracao }
 
 class TopMenuWidget extends StatelessWidget {
   final TopMenuEnum topMenuEnum;
@@ -93,6 +93,24 @@ class TopMenuWidget extends StatelessWidget {
                       ),
                 ),
               ),
+            ],
+          ),
+          const SizedBox(width: 40),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TextButton(
+                onPressed: () => Modular.to.navigate('/administracao/'),
+                child: Text(
+                  'ADMINISTRAÇÃO',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+              ),
+              if (topMenuEnum == TopMenuEnum.administracao)
+                const Padding(
+                  padding: EdgeInsets.only(left: 8),
+                  child: GenericDividerWidget(width: 75),
+                ),
             ],
           ),
         ],

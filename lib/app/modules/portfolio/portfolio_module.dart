@@ -2,10 +2,10 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:portfoliov2/app/modules/portfolio/domain/entities/project.dart';
 import 'package:portfoliov2/app/modules/portfolio/domain/usecases/fetch_portfolios.dart';
 import 'package:portfoliov2/app/modules/portfolio/domain/usecases/get_projects_by_portfolio.dart';
-import 'package:portfoliov2/app/modules/portfolio/external/firebase_fetch_portfolios_datasource.dart';
-import 'package:portfoliov2/app/modules/portfolio/external/firebase_get_projects_by_portfolio_datasource.dart';
-import 'package:portfoliov2/app/modules/portfolio/infra/repositories/fetch_portfolios_repository.dart';
-import 'package:portfoliov2/app/modules/portfolio/infra/repositories/get_projects_by_portfolio_repository.dart';
+import 'package:portfoliov2/app/modules/portfolio/external/firebase_portfolio_datasource.dart';
+import 'package:portfoliov2/app/modules/portfolio/external/firebase_project_datasource.dart';
+import 'package:portfoliov2/app/modules/portfolio/infra/repositories/portfolio_repository.dart';
+import 'package:portfoliov2/app/modules/portfolio/infra/repositories/project_repository.dart';
 import 'package:portfoliov2/app/modules/portfolio/presenter/portfolio/bloc/portfolio_bloc.dart';
 import 'package:portfoliov2/app/modules/portfolio/presenter/portfolio/pages/portfolio_page.dart';
 import 'package:portfoliov2/app/modules/portfolio/presenter/project/bloc/project_bloc.dart';
@@ -14,19 +14,19 @@ import 'package:portfoliov2/app/modules/portfolio/presenter/project/pages/projec
 class PortfolioModule extends Module {
   @override
   List<Bind> get binds => [
-        Bind.singleton((i) => FirebaseFetchPortfoliosDatasource()),
+        Bind.singleton((i) => FirebasePortfolioDatasource()),
         Bind.singleton(
-          (i) => FetchPortfoliosRepository(iFetchPortfoliosDatasource: i<FirebaseFetchPortfoliosDatasource>()),
+          (i) => PortfolioRepository(iPortfolioDatasource: i<FirebasePortfolioDatasource>()),
         ),
-        Bind.singleton((i) => FetchPortfolios(iFetchPortfoliosRepository: i())),
+        Bind.singleton((i) => FetchPortfolios(iPortfolioRepository: i())),
         Bind.singleton((i) => PortfolioBloc(fetchPortfolios: i())),
-        Bind.singleton((i) => FirebaseGetProjectsByPortfolioDatasource()),
+        Bind.singleton((i) => FirebaseProjectDatasource()),
         Bind.singleton(
-          (i) => GetProjectsByPortifolioRepository(
-            iGetProjectsByPortfolioDatasource: i<FirebaseGetProjectsByPortfolioDatasource>(),
+          (i) => ProjectRepository(
+            iProjectDatasource: i<FirebaseProjectDatasource>(),
           ),
         ),
-        Bind.singleton((i) => GetProjectsByPortfolio(iGetProjectsByPortfolioRepository: i())),
+        Bind.singleton((i) => GetProjectsByPortfolio(iProjectRepository: i())),
         Bind.factory((i) => ProjectBloc(getProjectsByPortfolio: i())),
       ];
 
@@ -36,11 +36,13 @@ class PortfolioModule extends Module {
           '/',
           child: (ctx, args) => const PortfolioPage(),
           transition: TransitionType.fadeIn,
+          duration: const Duration(seconds: 1),
         ),
         ChildRoute(
           '/project',
           child: (ctx, args) => ProjectPage(project: args.data as Project),
           transition: TransitionType.fadeIn,
+          duration: const Duration(seconds: 1),
         ),
       ];
 }
