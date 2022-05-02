@@ -58,6 +58,8 @@ class _SigninPageState extends State<SigninPage> {
               child: BlocBuilder<AuthBloc, AuthState>(
                 bloc: authBloc,
                 builder: (ctx, state) {
+                  if (state is SuccessAuthState) Modular.to.navigate('/');
+
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

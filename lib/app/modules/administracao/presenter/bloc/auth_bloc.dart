@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portfoliov2/app/modules/administracao/domain/entities/user_entity.dart';
 import 'package:portfoliov2/app/modules/administracao/domain/repositories/auth_repository_interface.dart';
+import 'package:portfoliov2/app/modules/administracao/domain/usecases/is_logged.dart';
 import 'package:portfoliov2/app/modules/administracao/domain/usecases/logout.dart';
 import 'package:portfoliov2/app/modules/administracao/domain/usecases/signin.dart';
 import 'package:portfoliov2/app/modules/administracao/presenter/bloc/auth_event.dart';
@@ -9,10 +10,12 @@ import 'package:portfoliov2/app/modules/administracao/presenter/bloc/auth_state.
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final ISignin iSignin;
   final ILogout iLogout;
+  final IIsLogged iIsLogged;
 
   AuthBloc({
     required this.iSignin,
     required this.iLogout,
+    required this.iIsLogged,
   }) : super(InitialAuthState()) {
     on<SigninAuthEvent>(_signinAuthEvent);
     on<LogoutAuthEvent>(_logoutAuthEvent);
@@ -33,9 +36,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(LoadingAuthState());
     try {
       await iLogout.logout();
-      emit(SuccessAuthState());
+      emit(SuccessLogoutAuthState());
     } catch (e) {
       emit(ErrorAuthState(message: e.toString()));
     }
+  }
+
+  bool isLogged() {
+    return iIsLogged.isLogged();
   }
 }

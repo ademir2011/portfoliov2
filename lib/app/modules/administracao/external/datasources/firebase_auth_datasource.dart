@@ -37,4 +37,9 @@ class FirebaseAuthDatasource implements IAuthDatasource {
       await firebaseAuth.signOut();
     }
   }
+
+  @override
+  bool isLogged() {
+    return firebaseAuth.currentUser != null;
+  }
 }

@@ -23,4 +23,9 @@ class AuthRepository implements IAuthRepository {
   Future<void> logout() async {
     return await iAuthDatasource.logout();
   }
+
+  @override
+  bool isLogged() {
+    return iAuthDatasource.isLogged();
+  }
 }
