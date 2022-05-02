@@ -2,5 +2,5 @@ import 'package:portfoliov2/app/modules/administracao/domain/entities/user_entit
 
 abstract class IAuthDatasource {
   Future<UserEntity> signin({required UserEntity userEntity});
-  Future<UserEntity> logout();
+  Future<void> logout();
 }

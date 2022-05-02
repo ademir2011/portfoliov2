@@ -9,6 +9,18 @@ class AuthRepository implements IAuthRepository {
 
   @override
   Future<UserEntity> signin({required UserEntity userEntity}) async {
-    return await iAuthDatasource.signin(userEntity: userEntity);
+    try {
+      if (userEntity.email!.isEmpty || userEntity.password!.isEmpty) throw Exception('campo vazio');
+      userEntity = await iAuthDatasource.signin(userEntity: userEntity);
+    } catch (e) {
+      throw Exception(e);
+    }
+
+    return userEntity;
+  }
+
+  @override
+  Future<void> logout() async {
+    return await iAuthDatasource.logout();
   }
 }

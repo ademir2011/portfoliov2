@@ -9,17 +9,32 @@ class FirebaseAuthDatasource implements IAuthDatasource {
 
   @override
   Future<UserEntity> signin({required UserEntity userEntity}) async {
-    UserCredential userCredential = await firebaseAuth.signInWithEmailAndPassword(
-      email: userEntity.email.toString(),
-      password: userEntity.password.toString(),
-    );
+    late UserCredential userCredential;
+    try {
+      userCredential = await firebaseAuth.signInWithEmailAndPassword(
+        email: userEntity.email.toString(),
+        password: userEntity.password.toString(),
+      );
+    } on FirebaseAuthException catch (e) {
+      switch (e.code) {
+        case 'invalid-email':
+          throw Exception('email inválido!');
+        case 'user-disabled':
+          throw Exception('Este usuário está desabilitado!');
+        case 'user-not-found':
+          throw Exception('Usuário não encontrado!');
+        case 'wrong-password':
+          throw Exception('Senha incorreta!');
+      }
+    }
     userEntity.id = userCredential.user!.uid;
     return userEntity;
   }
 
   @override
-  Future<UserEntity> logout() {
-    // TODO: implement logout
-    throw UnimplementedError();
+  Future<void> logout() async {
+    if (firebaseAuth.currentUser != null) {
+      await firebaseAuth.signOut();
+    }
   }
 }

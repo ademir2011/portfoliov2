@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 class TextFormFieldWidget extends StatelessWidget {
   final String hintText;
   final bool isPassword;
+  final TextEditingController? controller;
 
   const TextFormFieldWidget({
     Key? key,
     this.hintText = '',
     this.isPassword = false,
+    this.controller,
   }) : super(key: key);
 
   @override
@@ -37,6 +39,7 @@ class TextFormFieldWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
           ),
           child: TextFormField(
+            controller: controller,
             style: Theme.of(context).textTheme.bodyMedium,
             obscureText: isPassword,
             decoration: InputDecoration(

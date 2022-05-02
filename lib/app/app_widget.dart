@@ -25,6 +25,7 @@ class _AppWidgetState extends State<AppWidget> {
         ),
         cardColor: const Color(0xff323238),
         scaffoldBackgroundColor: const Color(0xff202024),
+        errorColor: const Color(0xffEE281F),
         textTheme: const TextTheme(
           displayLarge: TextStyle(
             fontFamily: 'MajorMonoDisplay',

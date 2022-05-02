@@ -2,7 +2,7 @@ import 'package:portfoliov2/app/modules/administracao/domain/entities/user_entit
 import 'package:portfoliov2/app/modules/administracao/domain/repositories/auth_repository_interface.dart';
 
 abstract class ISignin {
-  Future<UserEntity> sigin({required UserEntity userEntity});
+  Future<UserEntity> signin({required UserEntity userEntity});
 }
 
 class Signin implements ISignin {
@@ -11,7 +11,7 @@ class Signin implements ISignin {
   Signin({required this.iAuthRepository});
 
   @override
-  Future<UserEntity> sigin({required UserEntity userEntity}) async {
+  Future<UserEntity> signin({required UserEntity userEntity}) async {
     return await iAuthRepository.signin(userEntity: userEntity);
   }
 }

@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:portfoliov2/app/modules/administracao/presenter/bloc/auth_bloc.dart';
+import 'package:portfoliov2/app/modules/administracao/presenter/bloc/auth_event.dart';
+import 'package:portfoliov2/app/modules/administracao/presenter/bloc/auth_state.dart';
 import 'package:portfoliov2/shared/widgets/template_widget.dart';
 import 'package:portfoliov2/shared/widgets/top_menu_widget.dart';
 import 'package:portfoliov2/shared/widgets/outlined_button_widget.dart';
@@ -13,6 +17,11 @@ class SigninPage extends StatefulWidget {
 }
 
 class _SigninPageState extends State<SigninPage> {
+  final authBloc = Modular.get<AuthBloc>();
+  final formKey = GlobalKey<FormState>();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return TemplateWidget(
@@ -44,36 +53,65 @@ class _SigninPageState extends State<SigninPage> {
               color: Theme.of(context).colorScheme.inversePrimary,
               borderRadius: BorderRadius.circular(10),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'AUTENTICAR',
-                  style: Theme.of(context).textTheme.bodyLarge,
-                ),
-                const Spacer(),
-                const TextFormFieldWidget(hintText: 'E-mail'),
-                const SizedBox(height: 25),
-                const TextFormFieldWidget(
-                  hintText: 'Senha',
-                  isPassword: true,
-                ),
-                const Spacer(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    OutlinedButtonWidget(
-                      title: 'VOLTAR',
-                      onPressed: () => Modular.to.navigate('/'),
-                      secondary: true,
-                    ),
-                    OutlinedButtonWidget(
-                      title: 'ACESSAR',
-                      onPressed: () {},
-                    ),
-                  ],
-                )
-              ],
+            child: Form(
+              key: formKey,
+              child: BlocBuilder<AuthBloc, AuthState>(
+                bloc: authBloc,
+                builder: (ctx, state) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'AUTENTICAR',
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
+                      const Spacer(),
+                      TextFormFieldWidget(
+                        hintText: 'E-mail',
+                        controller: emailController,
+                      ),
+                      const SizedBox(height: 25),
+                      TextFormFieldWidget(
+                        hintText: 'Senha',
+                        isPassword: true,
+                        controller: passwordController,
+                      ),
+                      const Spacer(),
+                      Text(
+                        (state is ErrorAuthState) ? state.message : '',
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                              color: Theme.of(context).errorColor,
+                            ),
+                      ),
+                      const Spacer(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          OutlinedButtonWidget(
+                            title: 'VOLTAR',
+                            onPressed: () => Modular.to.navigate('/'),
+                            secondary: true,
+                          ),
+                          OutlinedButtonWidget(
+                            title: 'ACESSAR',
+                            isLoading: (state is LoadingAuthState),
+                            onPressed: () {
+                              if (formKey.currentState!.validate()) {
+                                authBloc.add(
+                                  SigninAuthEvent(
+                                    email: emailController.text,
+                                    password: passwordController.text,
+                                  ),
+                                );
+                              }
+                            },
+                          ),
+                        ],
+                      )
+                    ],
+                  );
+                },
+              ),
             ),
           ),
         ],
