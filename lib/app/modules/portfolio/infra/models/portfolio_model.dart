@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'package:portfoliov2/app/modules/portfolio/domain/entities/portfolio.dart';
 
 class PortfolioModel extends Portfolio {
-  final String? id;
-  final String? userId;
-  final DateTime? createdAt;
+  String? id;
+  String? userId;
+  DateTime? createdAt;
   DateTime? updatedAt;
   String title;
 

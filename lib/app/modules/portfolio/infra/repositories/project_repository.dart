@@ -20,9 +20,8 @@ class ProjectRepository implements IProjectRepository {
   }
 
   @override
-  Future<void> saveProject({required Project project}) {
-    // TODO: implement saveProject
-    throw UnimplementedError();
+  Future<void> saveProject({required Project project}) async {
+    return await iProjectDatasource.saveProject(project: project);
   }
 
   @override

@@ -12,6 +12,8 @@ class SuccessPortfolioState extends PortfolioState {
   SuccessPortfolioState({required this.portfolios});
 }
 
+class SuccessSavePortfolioState extends PortfolioState {}
+
 class ErrorPortfolioState extends PortfolioState {
   final String message;
 

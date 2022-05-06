@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
 class ProjectButtonWidget extends StatelessWidget {
-  final String title;
+  final String? title;
   final void Function() onTap;
+  final IconData? icon;
   const ProjectButtonWidget({
     Key? key,
-    required this.title,
+    this.title,
     required this.onTap,
+    this.icon,
   }) : super(key: key);
 
   @override
@@ -30,11 +32,13 @@ class ProjectButtonWidget extends StatelessWidget {
         child: Center(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Text(
-              title,
-              style: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 10),
-              textAlign: TextAlign.center,
-            ),
+            child: icon != null
+                ? Icon(icon)
+                : Text(
+                    title ?? '',
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 10),
+                    textAlign: TextAlign.center,
+                  ),
           ),
         ),
       ),

@@ -3,13 +3,17 @@ import 'package:flutter/material.dart';
 class TextFormFieldWidget extends StatelessWidget {
   final String hintText;
   final bool isPassword;
+  final bool enabled;
   final TextEditingController? controller;
+  final bool textArea;
 
   const TextFormFieldWidget({
     Key? key,
     this.hintText = '',
     this.isPassword = false,
     this.controller,
+    this.enabled = true,
+    this.textArea = false,
   }) : super(key: key);
 
   @override
@@ -17,20 +21,6 @@ class TextFormFieldWidget extends StatelessWidget {
     return Stack(
       alignment: Alignment.center,
       children: [
-        Container(
-          height: 50,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            gradient: LinearGradient(
-              colors: [
-                Theme.of(context).colorScheme.secondary,
-                Theme.of(context).colorScheme.tertiary,
-              ],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-          ),
-        ),
         Container(
           margin: const EdgeInsets.symmetric(horizontal: 1),
           padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -40,17 +30,20 @@ class TextFormFieldWidget extends StatelessWidget {
           ),
           child: TextFormField(
             controller: controller,
+            enabled: enabled,
+            maxLines: textArea ? 6 : null,
             style: Theme.of(context).textTheme.bodyMedium,
             obscureText: isPassword,
             decoration: InputDecoration(
               fillColor: Colors.transparent,
               hintText: hintText,
               hintStyle: Theme.of(context).textTheme.bodyMedium,
-              border: InputBorder.none,
-              focusedBorder: InputBorder.none,
-              enabledBorder: InputBorder.none,
-              errorBorder: InputBorder.none,
-              disabledBorder: InputBorder.none,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+              ),
             ),
           ),
         ),

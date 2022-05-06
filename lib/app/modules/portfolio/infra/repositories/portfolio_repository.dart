@@ -19,9 +19,8 @@ class PortfolioRepository implements IPortfolioRepository {
   }
 
   @override
-  Future<void> savePortfolio({required Portfolio portfolio}) {
-    // TODO: implement savePortfolio
-    throw UnimplementedError();
+  Future<void> savePortfolio({required Portfolio portfolio}) async {
+    return await iPortfolioDatasource.savePortfolio(portfolio: portfolio);
   }
 
   @override

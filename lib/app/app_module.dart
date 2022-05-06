@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -16,6 +17,7 @@ import 'package:portfoliov2/app/modules/portfolio/portfolio_module.dart';
 class AppModule extends Module {
   @override
   List<Bind> get binds => [
+        Bind.instance<FirebaseFirestore>(FirebaseFirestore.instance),
         Bind.instance<FirebaseAuth>(FirebaseAuth.instance),
         Bind.singleton((i) => FirebaseAuthDatasource(firebaseAuth: i<FirebaseAuth>())),
         Bind.singleton((i) => AuthRepository(iAuthDatasource: i<FirebaseAuthDatasource>())),

@@ -1,7 +1,7 @@
 class Portfolio {
-  final String? id;
-  final String? userId;
-  final DateTime? createdAt;
+  String? id;
+  String? userId;
+  DateTime? createdAt;
   DateTime? updatedAt;
   String title;
 

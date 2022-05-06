@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:portfoliov2/app/modules/portfolio/domain/entities/project.dart';
 
 class ProjectModel extends Project {
-  final String? id;
-  final String? userId;
-  final String? portfolioId;
-  final DateTime? createdAt;
+  String? id;
+  String? userId;
+  String? portfolioId;
+  DateTime? createdAt;
   DateTime? updatedAt;
   String? name;
   String? description;
@@ -44,15 +44,15 @@ class ProjectModel extends Project {
 
   factory ProjectModel.fromMap(Map<String, dynamic> map) {
     return ProjectModel(
-      id: map['id'] ?? '',
-      userId: map['userId'] ?? '',
-      portfolioId: map['portfolioId'] ?? '',
-      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt']),
+      id: map['id'],
+      userId: map['userId'],
+      portfolioId: map['portfolioId'],
+      createdAt: map['createdAt'] != null ? DateTime.fromMillisecondsSinceEpoch(map['createdAt']) : null,
       updatedAt: map['updatedAt'] != null ? DateTime.fromMillisecondsSinceEpoch(map['updatedAt']) : null,
       name: map['name'],
       description: map['description'],
-      tags: List<String>.from(map['tags']),
-      socialNetwoksUrl: List<String>.from(map['socialNetwoksUrl']),
+      tags: List<String>.from(map['tags'] ?? []),
+      socialNetwoksUrl: List<String>.from(map['socialNetwoksUrl'] ?? []),
       urlVideo: map['urlVideo'],
     );
   }

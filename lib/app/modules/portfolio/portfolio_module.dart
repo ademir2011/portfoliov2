@@ -1,7 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:portfoliov2/app/modules/portfolio/domain/entities/project.dart';
 import 'package:portfoliov2/app/modules/portfolio/domain/usecases/fetch_portfolios.dart';
 import 'package:portfoliov2/app/modules/portfolio/domain/usecases/get_projects_by_portfolio.dart';
+import 'package:portfoliov2/app/modules/portfolio/domain/usecases/save_portfolio.dart';
+import 'package:portfoliov2/app/modules/portfolio/domain/usecases/save_project.dart';
 import 'package:portfoliov2/app/modules/portfolio/external/firebase_portfolio_datasource.dart';
 import 'package:portfoliov2/app/modules/portfolio/external/firebase_project_datasource.dart';
 import 'package:portfoliov2/app/modules/portfolio/infra/repositories/portfolio_repository.dart';
@@ -14,20 +18,35 @@ import 'package:portfoliov2/app/modules/portfolio/presenter/project/pages/projec
 class PortfolioModule extends Module {
   @override
   List<Bind> get binds => [
-        Bind.singleton((i) => FirebasePortfolioDatasource()),
+        Bind.singleton(
+          (i) => FirebasePortfolioDatasource(
+            firebaseFirestore: i<FirebaseFirestore>(),
+            firebaseAuth: i<FirebaseAuth>(),
+          ),
+        ),
         Bind.singleton(
           (i) => PortfolioRepository(iPortfolioDatasource: i<FirebasePortfolioDatasource>()),
         ),
         Bind.singleton((i) => FetchPortfolios(iPortfolioRepository: i())),
-        Bind.singleton((i) => PortfolioBloc(fetchPortfolios: i())),
-        Bind.singleton((i) => FirebaseProjectDatasource()),
+        Bind.singleton((i) => SavePortfolio(iPortfolioRepository: i())),
+        Bind.singleton((i) => PortfolioBloc(fetchPortfolios: i(), savePortfolio: i())),
         Bind.singleton(
-          (i) => ProjectRepository(
-            iProjectDatasource: i<FirebaseProjectDatasource>(),
+          (i) => FirebaseProjectDatasource(
+            firebaseAuth: i<FirebaseAuth>(),
+            firebaseFirestore: i<FirebaseFirestore>(),
           ),
         ),
+        Bind.singleton(
+          (i) => ProjectRepository(iProjectDatasource: i<FirebaseProjectDatasource>()),
+        ),
         Bind.singleton((i) => GetProjectsByPortfolio(iProjectRepository: i())),
-        Bind.factory((i) => ProjectBloc(getProjectsByPortfolio: i())),
+        Bind.singleton((i) => SaveProject(iProjectRepository: i())),
+        Bind.factory(
+          (i) => ProjectBloc(
+            getProjectsByPortfolio: i(),
+            saveProject: i(),
+          ),
+        ),
       ];
 
   @override
