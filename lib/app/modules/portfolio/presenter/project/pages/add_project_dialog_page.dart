@@ -69,14 +69,17 @@ class _AddProjectDialogPageState extends State<AddProjectDialogPage> {
                   const SizedBox(height: 10),
                   TextFormFieldWidget(
                     hintText: 'Github',
+                    controller: githubController,
                   ),
                   const SizedBox(height: 10),
                   TextFormFieldWidget(
                     hintText: 'Playstore',
+                    controller: playstoreController,
                   ),
                   const SizedBox(height: 10),
                   TextFormFieldWidget(
                     hintText: 'Figma',
+                    controller: figmaController,
                   ),
                   const Spacer(),
                   Text(
@@ -105,7 +108,7 @@ class _AddProjectDialogPageState extends State<AddProjectDialogPage> {
                                   portfolioId: widget.portfolio.id,
                                   name: titleController.text,
                                   description: descriptionController.text,
-                                  socialNetwoksUrl: [
+                                  socialNetwoksUrl: <String>[
                                     githubController.text,
                                     playstoreController.text,
                                     figmaController.text,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:portfoliov2/app/modules/home/widgets/generic_divider_widget.dart';
 import 'package:portfoliov2/app/modules/portfolio/domain/entities/project.dart';
+import 'package:portfoliov2/app/modules/portfolio/presenter/project/pages/remove_project_dialog_page.dart';
 import 'package:portfoliov2/app/modules/portfolio/presenter/widgets/tag_widget.dart';
 import 'package:portfoliov2/app/modules/portfolio/presenter/widgets/video_template_widget.dart';
 import 'package:portfoliov2/shared/widgets/icon_link_widget.dart';
@@ -20,12 +21,24 @@ class ProjectPage extends StatefulWidget {
 }
 
 class _ProjectPageState extends State<ProjectPage> {
+  void _removeProjectDialog() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return RemoveProjectDialogPage(
+          project: widget.project,
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return TemplateWidget(
       title: 'PROJETOS',
       topMenuEnum: TopMenuEnum.projetos,
+      removeOnPressed: _removeProjectDialog,
       backButtonOnPress: () => Modular.to.navigate('/portfolio/'),
       child: Padding(
         padding: const EdgeInsets.all(40),

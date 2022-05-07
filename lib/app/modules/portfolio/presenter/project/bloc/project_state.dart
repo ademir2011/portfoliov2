@@ -9,6 +9,8 @@ class LoadingProjectState extends ProjectState {}
 
 class SuccessSaveProjectState extends ProjectState {}
 
+class SuccessRemoveProjectState extends ProjectState {}
+
 class SuccessProjectState extends ProjectState {
   final List<Project> projects;
 

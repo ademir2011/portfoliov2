@@ -28,24 +28,42 @@ class TextFormFieldWidget extends StatelessWidget {
             color: Theme.of(context).colorScheme.inversePrimary,
             borderRadius: BorderRadius.circular(10),
           ),
-          child: TextFormField(
-            controller: controller,
-            enabled: enabled,
-            maxLines: textArea ? 6 : null,
-            style: Theme.of(context).textTheme.bodyMedium,
-            obscureText: isPassword,
-            decoration: InputDecoration(
-              fillColor: Colors.transparent,
-              hintText: hintText,
-              hintStyle: Theme.of(context).textTheme.bodyMedium,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(
-                  color: Theme.of(context).colorScheme.primary,
+          child: isPassword
+              ? TextFormField(
+                  controller: controller,
+                  enabled: enabled,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                  obscureText: isPassword,
+                  decoration: InputDecoration(
+                    fillColor: Colors.transparent,
+                    hintText: hintText,
+                    hintStyle: Theme.of(context).textTheme.bodyMedium,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
+                  ),
+                )
+              : TextFormField(
+                  controller: controller,
+                  enabled: enabled,
+                  maxLines: textArea ? 6 : null,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                  obscureText: isPassword,
+                  decoration: InputDecoration(
+                    fillColor: Colors.transparent,
+                    hintText: hintText,
+                    hintStyle: Theme.of(context).textTheme.bodyMedium,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          ),
         ),
       ],
     );

@@ -14,9 +14,8 @@ class ProjectRepository implements IProjectRepository {
   }
 
   @override
-  Future<void> removeProject({required Project project}) {
-    // TODO: implement removeProject
-    throw UnimplementedError();
+  Future<void> removeProject({required Project project}) async {
+    return await iProjectDatasource.removeProject(project: project);
   }
 
   @override

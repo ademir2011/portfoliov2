@@ -4,6 +4,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:portfoliov2/app/modules/portfolio/domain/entities/project.dart';
 import 'package:portfoliov2/app/modules/portfolio/domain/usecases/fetch_portfolios.dart';
 import 'package:portfoliov2/app/modules/portfolio/domain/usecases/get_projects_by_portfolio.dart';
+import 'package:portfoliov2/app/modules/portfolio/domain/usecases/remove_project.dart';
 import 'package:portfoliov2/app/modules/portfolio/domain/usecases/save_portfolio.dart';
 import 'package:portfoliov2/app/modules/portfolio/domain/usecases/save_project.dart';
 import 'package:portfoliov2/app/modules/portfolio/external/firebase_portfolio_datasource.dart';
@@ -41,10 +42,12 @@ class PortfolioModule extends Module {
         ),
         Bind.singleton((i) => GetProjectsByPortfolio(iProjectRepository: i())),
         Bind.singleton((i) => SaveProject(iProjectRepository: i())),
+        Bind.singleton((i) => RemoveProject(iProjectRepository: i())),
         Bind.factory(
           (i) => ProjectBloc(
-            getProjectsByPortfolio: i(),
-            saveProject: i(),
+            iGetProjectsByPortfolio: i(),
+            iSaveProject: i(),
+            iRemoveProject: i(),
           ),
         ),
       ];

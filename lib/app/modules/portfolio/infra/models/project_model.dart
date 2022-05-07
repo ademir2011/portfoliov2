@@ -27,6 +27,10 @@ class ProjectModel extends Project {
     this.urlVideo,
   });
 
+  Map getMapFromList(List list) => {for (var item in list) '${list.indexOf(item)}': item};
+
+  static List<String> getListFromMap(Map map) => map.values.map((e) => e.toString()).toList();
+
   Map<String, dynamic> toMap() {
     return {
       'id': id,
@@ -36,8 +40,8 @@ class ProjectModel extends Project {
       'updatedAt': updatedAt?.millisecondsSinceEpoch,
       'name': name,
       'description': description,
-      'tags': tags,
-      'socialNetwoksUrl': socialNetwoksUrl,
+      'tags': tags != null ? getMapFromList(tags!) : [],
+      'socialNetwoksUrl': socialNetwoksUrl != null ? getMapFromList(socialNetwoksUrl!) : [],
       'urlVideo': urlVideo,
     };
   }
@@ -51,8 +55,8 @@ class ProjectModel extends Project {
       updatedAt: map['updatedAt'] != null ? DateTime.fromMillisecondsSinceEpoch(map['updatedAt']) : null,
       name: map['name'],
       description: map['description'],
-      tags: List<String>.from(map['tags'] ?? []),
-      socialNetwoksUrl: List<String>.from(map['socialNetwoksUrl'] ?? []),
+      tags: map['tags'] != null && (map['tags'] as List).isNotEmpty ? ProjectModel.getListFromMap(map['tags']) : null,
+      socialNetwoksUrl: map['socialNetwoksUrl'] != null ? ProjectModel.getListFromMap(map['socialNetwoksUrl']) : null,
       urlVideo: map['urlVideo'],
     );
   }

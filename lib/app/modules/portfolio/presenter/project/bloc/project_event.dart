@@ -13,3 +13,8 @@ class SaveProjectEvent extends ProjectEvent {
   final Project project;
   SaveProjectEvent({required this.project});
 }
+
+class RemoveProjectEvent extends ProjectEvent {
+  final Project project;
+  RemoveProjectEvent({required this.project});
+}
