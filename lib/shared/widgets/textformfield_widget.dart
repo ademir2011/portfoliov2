@@ -22,8 +22,6 @@ class TextFormFieldWidget extends StatelessWidget {
       alignment: Alignment.center,
       children: [
         Container(
-          margin: const EdgeInsets.symmetric(horizontal: 1),
-          padding: const EdgeInsets.symmetric(horizontal: 10),
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.inversePrimary,
             borderRadius: BorderRadius.circular(10),

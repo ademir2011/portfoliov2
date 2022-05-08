@@ -9,3 +9,14 @@ class SavePortfolioEvent extends PortfolioEvent {
 
   SavePortfolioEvent({required this.portfolio});
 }
+
+class UpdatePortfolioEvent extends PortfolioEvent {
+  final Portfolio portfolio;
+  UpdatePortfolioEvent({required this.portfolio});
+}
+
+class RemovePortfolioEvent extends PortfolioEvent {
+  final Portfolio portfolio;
+
+  RemovePortfolioEvent({required this.portfolio});
+}

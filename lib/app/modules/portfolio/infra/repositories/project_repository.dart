@@ -1,3 +1,4 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:portfoliov2/app/modules/portfolio/domain/entities/project.dart';
 import 'package:portfoliov2/app/modules/portfolio/domain/entities/portfolio.dart';
 import 'package:portfoliov2/app/modules/portfolio/domain/repositories/project_repository_interface.dart';
@@ -19,13 +20,18 @@ class ProjectRepository implements IProjectRepository {
   }
 
   @override
-  Future<void> saveProject({required Project project}) async {
-    return await iProjectDatasource.saveProject(project: project);
+  Future<void> saveProject({required Project project, required FilePickerResult? filePickerResult}) async {
+    return await iProjectDatasource.saveProject(project: project, filePickerResult: filePickerResult);
   }
 
   @override
   Future<void> updateProject({required Project project}) {
     // TODO: implement updateProject
     throw UnimplementedError();
+  }
+
+  @override
+  Future<void> removeAllProjectsByPortfolioId({required Portfolio portfolio}) async {
+    return await iProjectDatasource.removeAllProjectsByPortfolioId(portfolio: portfolio);
   }
 }

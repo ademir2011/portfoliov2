@@ -13,9 +13,8 @@ class PortfolioRepository implements IPortfolioRepository {
   }
 
   @override
-  Future<void> removePortfolio({required Portfolio portfolio}) {
-    // TODO: implement removePortfolio
-    throw UnimplementedError();
+  Future<void> removePortfolio({required Portfolio portfolio}) async {
+    return await iPortfolioDatasource.removePortfolio(portfolio: portfolio);
   }
 
   @override
@@ -24,8 +23,7 @@ class PortfolioRepository implements IPortfolioRepository {
   }
 
   @override
-  Future<void> updatePortfolio({required Portfolio portfolio}) {
-    // TODO: implement updatePortfolio
-    throw UnimplementedError();
+  Future<void> updatePortfolio({required Portfolio portfolio}) async {
+    return await iPortfolioDatasource.updatePortfolio(portfolio: portfolio);
   }
 }

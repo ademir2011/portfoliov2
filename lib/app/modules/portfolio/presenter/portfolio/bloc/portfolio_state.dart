@@ -14,6 +14,10 @@ class SuccessPortfolioState extends PortfolioState {
 
 class SuccessSavePortfolioState extends PortfolioState {}
 
+class SuccessUpdatePortfolioState extends PortfolioState {}
+
+class SuccessRemovePortfolioState extends PortfolioState {}
+
 class ErrorPortfolioState extends PortfolioState {
   final String message;
 

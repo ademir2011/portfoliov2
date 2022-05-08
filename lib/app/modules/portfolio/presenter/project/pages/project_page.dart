@@ -88,7 +88,7 @@ class ContentWidget extends StatelessWidget {
         const GenericDividerWidget(width: 75),
         const SizedBox(height: 25),
         SizedBox(
-          height: 300,
+          height: 285,
           width: 700,
           child: Text(
             project.description.toString(),
@@ -96,15 +96,27 @@ class ContentWidget extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 50),
-        const TagWidget(
-          title: 'BLOC',
-        ),
+        // const TagWidget(
+        //   title: 'BLOC',
+        // ),
         const SizedBox(height: 30),
-        IconLinkWidget(
-          onPressed: () {},
-          color: Theme.of(context).colorScheme.surfaceVariant,
-          pathAssetIcon: 'lib\\assets\\icons\\play-store.png',
-        ),
+        ...project.socialNetwoksUrl!.map(
+          (url) {
+            if (url.contains('github') || url.contains('figma') || url.contains('playstore')) {
+              return IconLinkWidget(
+                onPressed: () {},
+                color: Theme.of(context).colorScheme.surfaceVariant,
+                pathAssetIcon: url.contains('playstore')
+                    ? 'lib\\assets\\icons\\play-store.png'
+                    : url.contains('github')
+                        ? 'lib\\assets\\icons\\github.png'
+                        : 'lib\\assets\\icons\\figma.png',
+              );
+            }
+
+            return Container();
+          },
+        ).toList(),
       ],
     );
   }

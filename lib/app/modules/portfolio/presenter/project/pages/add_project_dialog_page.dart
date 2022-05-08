@@ -1,3 +1,5 @@
+import 'package:file_picker/file_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -30,12 +32,24 @@ class _AddProjectDialogPageState extends State<AddProjectDialogPage> {
   final githubController = TextEditingController();
   final playstoreController = TextEditingController();
   final figmaController = TextEditingController();
+
+  PlatformFile? pickedfile;
+  FilePickerResult? filePickerResult;
+
+  void _selectFile() async {
+    filePickerResult = await FilePicker.platform.pickFiles(type: FileType.video);
+    setState(() {
+      if (filePickerResult != null) pickedfile = filePickerResult!.files.first;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: Colors.transparent,
       content: DialogTemplateWidget(
         height: 700,
+        width: 700,
         child: BlocBuilder(
           bloc: widget.projectBloc,
           builder: (ctx, state) {
@@ -81,6 +95,14 @@ class _AddProjectDialogPageState extends State<AddProjectDialogPage> {
                     hintText: 'Figma',
                     controller: figmaController,
                   ),
+                  const SizedBox(height: 10),
+                  Align(
+                    alignment: Alignment.center,
+                    child: OutlinedButtonWidget(
+                      title: pickedfile != null ? pickedfile!.name : 'SELECIONAR ARQUIVO',
+                      onPressed: _selectFile,
+                    ),
+                  ),
                   const Spacer(),
                   Text(
                     (state is ErrorProjectState) ? state.message : '',
@@ -94,7 +116,7 @@ class _AddProjectDialogPageState extends State<AddProjectDialogPage> {
                     children: [
                       OutlinedButtonWidget(
                         title: 'VOLTAR',
-                        onPressed: () => Modular.to.pushNamedAndRemoveUntil('/portfolio/', (_) => true),
+                        onPressed: () => Modular.to.pop(),
                         secondary: true,
                       ),
                       OutlinedButtonWidget(
@@ -113,7 +135,9 @@ class _AddProjectDialogPageState extends State<AddProjectDialogPage> {
                                     playstoreController.text,
                                     figmaController.text,
                                   ],
+                                  urlVideo: pickedfile != null ? pickedfile!.name : null,
                                 ),
+                                filePickerResult: filePickerResult,
                               ),
                             );
                           }

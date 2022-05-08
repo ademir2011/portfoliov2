@@ -4,9 +4,12 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:portfoliov2/app/modules/portfolio/domain/entities/project.dart';
 import 'package:portfoliov2/app/modules/portfolio/domain/usecases/fetch_portfolios.dart';
 import 'package:portfoliov2/app/modules/portfolio/domain/usecases/get_projects_by_portfolio.dart';
+import 'package:portfoliov2/app/modules/portfolio/domain/usecases/remove_all_projects_by_portfolio_id.dart';
+import 'package:portfoliov2/app/modules/portfolio/domain/usecases/remove_portfolio.dart';
 import 'package:portfoliov2/app/modules/portfolio/domain/usecases/remove_project.dart';
 import 'package:portfoliov2/app/modules/portfolio/domain/usecases/save_portfolio.dart';
 import 'package:portfoliov2/app/modules/portfolio/domain/usecases/save_project.dart';
+import 'package:portfoliov2/app/modules/portfolio/domain/usecases/update_portfolio.dart';
 import 'package:portfoliov2/app/modules/portfolio/external/firebase_portfolio_datasource.dart';
 import 'package:portfoliov2/app/modules/portfolio/external/firebase_project_datasource.dart';
 import 'package:portfoliov2/app/modules/portfolio/infra/repositories/portfolio_repository.dart';
@@ -26,23 +29,34 @@ class PortfolioModule extends Module {
           ),
         ),
         Bind.singleton(
-          (i) => PortfolioRepository(iPortfolioDatasource: i<FirebasePortfolioDatasource>()),
-        ),
-        Bind.singleton((i) => FetchPortfolios(iPortfolioRepository: i())),
-        Bind.singleton((i) => SavePortfolio(iPortfolioRepository: i())),
-        Bind.singleton((i) => PortfolioBloc(fetchPortfolios: i(), savePortfolio: i())),
-        Bind.singleton(
           (i) => FirebaseProjectDatasource(
             firebaseAuth: i<FirebaseAuth>(),
             firebaseFirestore: i<FirebaseFirestore>(),
           ),
         ),
         Bind.singleton(
+          (i) => PortfolioRepository(iPortfolioDatasource: i<FirebasePortfolioDatasource>()),
+        ),
+        Bind.singleton(
           (i) => ProjectRepository(iProjectDatasource: i<FirebaseProjectDatasource>()),
         ),
+        Bind.singleton((i) => FetchPortfolios(iPortfolioRepository: i())),
+        Bind.singleton((i) => SavePortfolio(iPortfolioRepository: i())),
+        Bind.singleton((i) => UpdatePortfolio(iPortfolioRepository: i())),
+        Bind.singleton((i) => RemovePortfolio(iPortfolioRepository: i())),
         Bind.singleton((i) => GetProjectsByPortfolio(iProjectRepository: i())),
         Bind.singleton((i) => SaveProject(iProjectRepository: i())),
         Bind.singleton((i) => RemoveProject(iProjectRepository: i())),
+        Bind.singleton((i) => RemoveAllProjectByPortfolioId(iProjectRepository: i())),
+        Bind.singleton(
+          (i) => PortfolioBloc(
+            iFetchPortfolios: i(),
+            iSavePortfolio: i(),
+            iUpdatePortfolio: i(),
+            iRemovePortfolio: i(),
+            iRemoveAllProjectsByPortfolioId: i(),
+          ),
+        ),
         Bind.factory(
           (i) => ProjectBloc(
             iGetProjectsByPortfolio: i(),

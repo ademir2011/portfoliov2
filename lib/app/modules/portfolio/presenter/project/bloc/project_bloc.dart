@@ -33,7 +33,10 @@ class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
   Future<void> _saveProjectEvent(SaveProjectEvent event, emit) async {
     emit(LoadingProjectState());
     try {
-      await iSaveProject.saveProject(project: event.project);
+      await iSaveProject.saveProject(
+        project: event.project,
+        filePickerResult: event.filePickerResult,
+      );
       emit(SuccessSaveProjectState());
     } catch (e) {
       emit(ErrorProjectState(message: e.toString()));

@@ -29,9 +29,13 @@ class FirebasePortfolioDatasource implements IPortfolioDatasource {
   }
 
   @override
-  Future<void> removePortfolio({required Portfolio portfolio}) {
-    // TODO: implement removePortfolio
-    throw UnimplementedError();
+  Future<void> removePortfolio({required Portfolio portfolio}) async {
+    final portfoliosCollection = firebaseFirestore.collection('portfolios');
+    try {
+      await portfoliosCollection.doc(portfolio.id).delete();
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 
   @override
@@ -69,22 +73,3 @@ class FirebasePortfolioDatasource implements IPortfolioDatasource {
     }
   }
 }
-
-const String json = '''
-[
-{
-  "id" : "1",
-  "userId" : "2022",
-  "createdAt" : 1650644204,
-  "updatedAt" : 1650644204,
-  "title" : "Mobile"
-},
-{
-  "id" : "2",
-  "userId" : "2022",
-  "createdAt" : 1650903404,
-  "updatedAt" : 1650903404,
-  "title" : "Flutter Web"
-}
-]
-''';

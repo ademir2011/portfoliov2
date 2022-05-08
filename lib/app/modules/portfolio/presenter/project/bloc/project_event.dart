@@ -1,3 +1,4 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:portfoliov2/app/modules/portfolio/domain/entities/portfolio.dart';
 import 'package:portfoliov2/app/modules/portfolio/domain/entities/project.dart';
 
@@ -11,7 +12,11 @@ class GetProjectsByPortfolioEvent extends ProjectEvent {
 
 class SaveProjectEvent extends ProjectEvent {
   final Project project;
-  SaveProjectEvent({required this.project});
+  final FilePickerResult? filePickerResult;
+  SaveProjectEvent({
+    required this.project,
+    required this.filePickerResult,
+  });
 }
 
 class RemoveProjectEvent extends ProjectEvent {

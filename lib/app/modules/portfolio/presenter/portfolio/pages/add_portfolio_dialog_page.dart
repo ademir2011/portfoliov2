@@ -9,17 +9,19 @@ import 'package:portfoliov2/shared/widgets/dialog_template_widget.dart';
 import 'package:portfoliov2/shared/widgets/outlined_button_widget.dart';
 import 'package:portfoliov2/shared/widgets/textformfield_widget.dart';
 
-class AddPortfolioDialogPage extends StatelessWidget {
-  const AddPortfolioDialogPage({
+class AddPortfolioDialogPage extends StatefulWidget {
+  AddPortfolioDialogPage({
     Key? key,
-    required this.formKey,
-    required this.titleController,
-    required this.portfolioBloc,
   }) : super(key: key);
 
-  final GlobalKey<FormState> formKey;
-  final TextEditingController titleController;
-  final PortfolioBloc portfolioBloc;
+  @override
+  State<AddPortfolioDialogPage> createState() => _AddPortfolioDialogPageState();
+}
+
+class _AddPortfolioDialogPageState extends State<AddPortfolioDialogPage> {
+  final formKey = GlobalKey<FormState>();
+  final titleController = TextEditingController();
+  final portfolioBloc = Modular.get<PortfolioBloc>();
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +60,7 @@ class AddPortfolioDialogPage extends StatelessWidget {
                     children: [
                       OutlinedButtonWidget(
                         title: 'VOLTAR',
-                        onPressed: () => Modular.to.pushNamedAndRemoveUntil('/portfolio/', (_) => true),
+                        onPressed: () => Modular.to.pop(),
                         secondary: true,
                       ),
                       OutlinedButtonWidget(

@@ -37,6 +37,7 @@ class _OutlinedButtonWidgetState extends State<OutlinedButtonWidget> {
             ? const SizedBox(height: 15, width: 15, child: CircularProgressIndicator())
             : Text(
                 widget.title,
+                textAlign: TextAlign.center,
                 style: widget.secondary
                     ? Theme.of(context).textTheme.bodySmall!.copyWith(
                           color: Theme.of(context).textTheme.bodySmall!.color!.withOpacity(.5),
