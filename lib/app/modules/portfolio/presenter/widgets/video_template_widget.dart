@@ -26,6 +26,18 @@ class _VideoTemplateWidgetState extends State<VideoTemplateWidget> {
     if (widget.urlVideo != null) {
       videoPlayerController = VideoPlayerController.network(widget.urlVideo!)
         ..initialize().then((_) => setState(() => {}));
+      videoPlayerController!.addListener(() => setState(() => {}));
+      videoPlayerController!.setVolume(0);
+      videoPlayerController!.play();
+    }
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    if (videoPlayerController != null) {
+      videoPlayerController!.dispose();
     }
   }
 
@@ -63,6 +75,7 @@ class _VideoTemplateWidgetState extends State<VideoTemplateWidget> {
               Container(
                 width: widget.width - 2.5,
                 height: widget.height - 2.5,
+                padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
@@ -79,7 +92,22 @@ class _VideoTemplateWidgetState extends State<VideoTemplateWidget> {
                     ? const Center(
                         child: CircularProgressIndicator(),
                       )
-                    : Text('video carregado.'),
+                    : SizedBox(
+                        height: widget.height - 50,
+                        child: Stack(
+                          alignment: Alignment.bottomCenter,
+                          children: [
+                            VideoPlayer(videoPlayerController!),
+                            Container(
+                              height: 10,
+                              decoration: BoxDecoration(
+                                color: Colors.black.withOpacity(.5),
+                              ),
+                              child: VideoProgressIndicator(videoPlayerController!, allowScrubbing: true),
+                            ),
+                          ],
+                        ),
+                      ),
               ),
             ],
           );
