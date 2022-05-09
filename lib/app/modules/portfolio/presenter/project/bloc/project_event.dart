@@ -10,6 +10,11 @@ class GetProjectsByPortfolioEvent extends ProjectEvent {
   GetProjectsByPortfolioEvent({required this.portfolio});
 }
 
+class GetProjectByIdEvent extends ProjectEvent {
+  final String id;
+  GetProjectByIdEvent({required this.id});
+}
+
 class SaveProjectEvent extends ProjectEvent {
   final Project project;
   final FilePickerResult? filePickerResult;

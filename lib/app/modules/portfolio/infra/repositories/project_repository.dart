@@ -34,4 +34,9 @@ class ProjectRepository implements IProjectRepository {
   Future<void> removeAllProjectsByPortfolioId({required Portfolio portfolio}) async {
     return await iProjectDatasource.removeAllProjectsByPortfolioId(portfolio: portfolio);
   }
+
+  @override
+  Future<Project> getProjectById({required String id}) async {
+    return await iProjectDatasource.getProjectById(id: id);
+  }
 }

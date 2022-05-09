@@ -62,7 +62,7 @@ class _ProjectsGroupButtonWidgetState extends State<ProjectsGroupButtonWidget> {
                     children: [
                       ProjectButtonWidget(
                         title: project.name.toString(),
-                        onTap: () => Modular.to.navigate('/portfolio/project', arguments: project),
+                        onTap: () => Modular.to.navigate('/portfolio/project/${project.id}'),
                       ),
                       const SizedBox(width: 20),
                     ],

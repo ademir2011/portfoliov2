@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:portfoliov2/app/modules/portfolio/domain/entities/project.dart';
 import 'package:portfoliov2/app/modules/portfolio/domain/usecases/fetch_portfolios.dart';
+import 'package:portfoliov2/app/modules/portfolio/domain/usecases/get_project_by_id.dart';
 import 'package:portfoliov2/app/modules/portfolio/domain/usecases/get_projects_by_portfolio.dart';
 import 'package:portfoliov2/app/modules/portfolio/domain/usecases/remove_all_projects_by_portfolio_id.dart';
 import 'package:portfoliov2/app/modules/portfolio/domain/usecases/remove_portfolio.dart';
@@ -48,6 +49,7 @@ class PortfolioModule extends Module {
         Bind.singleton((i) => SaveProject(iProjectRepository: i())),
         Bind.singleton((i) => RemoveProject(iProjectRepository: i())),
         Bind.singleton((i) => RemoveAllProjectByPortfolioId(iProjectRepository: i())),
+        Bind.singleton((i) => GetProjectById(iProjectRepository: i())),
         Bind.singleton(
           (i) => PortfolioBloc(
             iFetchPortfolios: i(),
@@ -62,6 +64,7 @@ class PortfolioModule extends Module {
             iGetProjectsByPortfolio: i(),
             iSaveProject: i(),
             iRemoveProject: i(),
+            iGetProjectById: i(),
           ),
         ),
       ];
@@ -75,8 +78,8 @@ class PortfolioModule extends Module {
           duration: const Duration(seconds: 1),
         ),
         ChildRoute(
-          '/project',
-          child: (ctx, args) => ProjectPage(project: args.data as Project),
+          '/project/:projectId',
+          child: (ctx, args) => ProjectPage(projectId: args.params['projectId']),
           transition: TransitionType.fadeIn,
           duration: const Duration(seconds: 1),
         ),

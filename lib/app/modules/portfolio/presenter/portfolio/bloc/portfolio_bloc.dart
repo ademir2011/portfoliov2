@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portfoliov2/app/modules/portfolio/domain/usecases/fetch_portfolios.dart';
+import 'package:portfoliov2/app/modules/portfolio/domain/usecases/get_project_by_id.dart';
 import 'package:portfoliov2/app/modules/portfolio/domain/usecases/remove_all_projects_by_portfolio_id.dart';
 import 'package:portfoliov2/app/modules/portfolio/domain/usecases/remove_portfolio.dart';
 import 'package:portfoliov2/app/modules/portfolio/domain/usecases/save_portfolio.dart';

@@ -22,3 +22,8 @@ class ErrorProjectState extends ProjectState {
 
   ErrorProjectState({required this.message});
 }
+
+class SuccessGetProjectByIdState extends ProjectState {
+  final Project project;
+  SuccessGetProjectByIdState({required this.project});
+}

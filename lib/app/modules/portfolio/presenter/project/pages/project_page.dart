@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:portfoliov2/app/modules/home/widgets/generic_divider_widget.dart';
 import 'package:portfoliov2/app/modules/portfolio/domain/entities/project.dart';
+import 'package:portfoliov2/app/modules/portfolio/presenter/portfolio/bloc/portfolio_state.dart';
+import 'package:portfoliov2/app/modules/portfolio/presenter/project/bloc/project_bloc.dart';
+import 'package:portfoliov2/app/modules/portfolio/presenter/project/bloc/project_event.dart';
+import 'package:portfoliov2/app/modules/portfolio/presenter/project/bloc/project_state.dart';
 import 'package:portfoliov2/app/modules/portfolio/presenter/project/pages/remove_project_dialog_page.dart';
-import 'package:portfoliov2/app/modules/portfolio/presenter/widgets/tag_widget.dart';
 import 'package:portfoliov2/app/modules/portfolio/presenter/widgets/video_template_widget.dart';
 import 'package:portfoliov2/shared/widgets/icon_link_widget.dart';
 import 'package:portfoliov2/shared/widgets/template_widget.dart';
 import 'package:portfoliov2/shared/widgets/top_menu_widget.dart';
 
 class ProjectPage extends StatefulWidget {
-  final Project project;
+  final String projectId;
   const ProjectPage({
     Key? key,
-    required this.project,
+    required this.projectId,
   }) : super(key: key);
 
   @override
@@ -21,12 +25,23 @@ class ProjectPage extends StatefulWidget {
 }
 
 class _ProjectPageState extends State<ProjectPage> {
-  void _removeProjectDialog() {
+  final projectBloc = Modular.get<ProjectBloc>();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+      projectBloc.add(GetProjectByIdEvent(id: widget.projectId));
+    });
+  }
+
+  void _removeProjectDialog({required Project project}) {
     showDialog(
       context: context,
       builder: (context) {
         return RemoveProjectDialogPage(
-          project: widget.project,
+          project: project,
         );
       },
     );
@@ -35,35 +50,54 @@ class _ProjectPageState extends State<ProjectPage> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return TemplateWidget(
-      title: 'PROJETOS',
-      topMenuEnum: TopMenuEnum.projetos,
-      removeOnPressed: _removeProjectDialog,
-      backButtonOnPress: () => Modular.to.navigate('/portfolio/'),
-      child: Padding(
-        padding: const EdgeInsets.all(40),
-        child: size.width > 1000
-            ? Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Flexible(
-                    child: ContentWidget(
-                      project: widget.project,
+
+    return BlocBuilder<ProjectBloc, ProjectState>(
+      bloc: projectBloc,
+      builder: (ctx, state) {
+        if (state is LoadingProjectState) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+
+        if (state is SuccessGetProjectByIdState) {
+          return TemplateWidget(
+            title: 'PROJETOS',
+            topMenuEnum: TopMenuEnum.projetos,
+            removeOnPressed: () => _removeProjectDialog(project: state.project),
+            backButtonOnPress: () => Modular.to.navigate('/portfolio/'),
+            child: Padding(
+              padding: const EdgeInsets.all(40),
+              child: size.width > 1000
+                  ? Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Flexible(
+                          child: SizedBox(
+                            width: 500,
+                            child: ContentWidget(
+                              project: state.project,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 25),
+                        VideoTemplateWidget(height: 500, width: 275, urlVideo: state.project.urlVideo),
+                      ],
+                    )
+                  : Column(
+                      children: [
+                        ContentWidget(project: state.project),
+                        const SizedBox(height: 25),
+                        VideoTemplateWidget(height: 500, width: 275, urlVideo: state.project.urlVideo),
+                        const SizedBox(height: 25),
+                      ],
                     ),
-                  ),
-                  const SizedBox(width: 25),
-                  const VideoTemplateWidget(height: 500, width: 275),
-                ],
-              )
-            : Column(
-                children: [
-                  ContentWidget(project: widget.project),
-                  const SizedBox(height: 25),
-                  const VideoTemplateWidget(height: 500, width: 275),
-                  const SizedBox(height: 25),
-                ],
-              ),
-      ),
+            ),
+          );
+        }
+
+        return Container();
+      },
     );
   }
 }

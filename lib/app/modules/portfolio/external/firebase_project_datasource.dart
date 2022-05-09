@@ -29,7 +29,6 @@ class FirebaseProjectDatasource implements IProjectDatasource {
       final projects = projectsMap.docs.map((projectDS) => ProjectModel.fromMap(projectDS.data())).toList();
       return projects;
     } catch (e) {
-      print(e);
       throw Exception(e);
     }
   }
@@ -113,6 +112,19 @@ class FirebaseProjectDatasource implements IProjectDatasource {
       for (var project in projects) {
         await projectCollection.doc(project.id).delete();
       }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  @override
+  Future<Project> getProjectById({required String id}) async {
+    final projectCollection = firebaseFirestore.collection('projects');
+    final QuerySnapshot<Map<String, dynamic>> projectsMap = await projectCollection.where('id', isEqualTo: id).get();
+
+    try {
+      final projects = projectsMap.docs.map((projectDS) => ProjectModel.fromMap(projectDS.data())).toList();
+      return projects.first;
     } catch (e) {
       throw Exception(e);
     }

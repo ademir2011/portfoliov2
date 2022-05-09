@@ -8,4 +8,5 @@ abstract class IProjectDatasource {
   Future<void> saveProject({required Project project, required FilePickerResult? filePickerResult});
   Future<void> updateProject({required Project project});
   Future<void> removeAllProjectsByPortfolioId({required Portfolio portfolio});
+  Future<Project> getProjectById({required String id});
 }
