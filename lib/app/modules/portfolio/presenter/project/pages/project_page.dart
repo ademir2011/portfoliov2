@@ -96,14 +96,14 @@ class _ProjectPageState extends State<ProjectPage> {
                           ),
                         ),
                         const SizedBox(width: 25),
-                        VideoTemplateWidget(height: 500, width: 275, urlVideo: state.project.urlVideo),
+                        VideoTemplateWidget(height: 500, width: 350, urlVideo: state.project.urlVideo),
                       ],
                     )
                   : Column(
                       children: [
                         ContentWidget(project: state.project),
                         const SizedBox(height: 25),
-                        VideoTemplateWidget(height: 500, width: 275, urlVideo: state.project.urlVideo),
+                        VideoTemplateWidget(height: 500, width: 350, urlVideo: state.project.urlVideo),
                         const SizedBox(height: 25),
                       ],
                     ),

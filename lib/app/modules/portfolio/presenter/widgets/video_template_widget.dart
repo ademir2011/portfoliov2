@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoTemplateWidget extends StatefulWidget {
-  final double width;
-  final double height;
+  double width;
+  double height;
   final String? urlVideo;
 
-  const VideoTemplateWidget({
+  VideoTemplateWidget({
     Key? key,
     this.width = 300,
     this.height = 600,
@@ -25,7 +25,13 @@ class _VideoTemplateWidgetState extends State<VideoTemplateWidget> {
     super.initState();
     if (widget.urlVideo != null) {
       videoPlayerController = VideoPlayerController.network(widget.urlVideo!)
-        ..initialize().then((_) => setState(() => {}));
+        ..initialize().then((_) => setState(() {
+              if (videoPlayerController!.value.aspectRatio > 1) {
+                final temp = widget.width;
+                widget.width = widget.height * 1.5;
+                widget.height = temp * 1.5;
+              }
+            }));
       videoPlayerController!.addListener(() => setState(() => {}));
       videoPlayerController!.setVolume(0);
       videoPlayerController!.play();
