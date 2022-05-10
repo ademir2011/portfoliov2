@@ -27,3 +27,8 @@ class SuccessGetProjectByIdState extends ProjectState {
   final Project project;
   SuccessGetProjectByIdState({required this.project});
 }
+
+class SuccessUpdateProjectState extends ProjectState {
+  final Project project;
+  SuccessUpdateProjectState({required this.project});
+}

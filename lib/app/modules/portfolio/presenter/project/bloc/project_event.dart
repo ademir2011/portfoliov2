@@ -24,6 +24,15 @@ class SaveProjectEvent extends ProjectEvent {
   });
 }
 
+class UpdateProjectEvent extends ProjectEvent {
+  final Project project;
+  final FilePickerResult? filePickerResult;
+  UpdateProjectEvent({
+    required this.project,
+    required this.filePickerResult,
+  });
+}
+
 class RemoveProjectEvent extends ProjectEvent {
   final Project project;
   RemoveProjectEvent({required this.project});

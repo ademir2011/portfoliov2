@@ -47,7 +47,7 @@ class TextFormFieldWidget extends StatelessWidget {
               : TextFormField(
                   controller: controller,
                   enabled: enabled,
-                  maxLines: textArea ? 6 : null,
+                  maxLines: textArea ? 15 : null,
                   style: Theme.of(context).textTheme.bodyMedium,
                   obscureText: isPassword,
                   decoration: InputDecoration(

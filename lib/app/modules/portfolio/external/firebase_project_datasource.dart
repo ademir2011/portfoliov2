@@ -73,14 +73,14 @@ class FirebaseProjectDatasource implements IProjectDatasource {
       DocumentReference docRef = await projectCollection.add(projectModel.toMap());
       projectModel.id = docRef.id;
       projectModel.userId = firebaseAuth.currentUser!.uid;
-      await updateProject(project: projectModel);
+      await updateProject(project: projectModel, filePickerResult: filePickerResult);
     } catch (e) {
       throw Exception(e);
     }
   }
 
   @override
-  Future<void> updateProject({required Project project}) async {
+  Future<void> updateProject({required Project project, required FilePickerResult? filePickerResult}) async {
     final projectCollection = firebaseFirestore.collection('projects');
 
     final projectModel = ProjectModel(

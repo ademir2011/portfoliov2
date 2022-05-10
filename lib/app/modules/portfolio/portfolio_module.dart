@@ -11,6 +11,7 @@ import 'package:portfoliov2/app/modules/portfolio/domain/usecases/remove_project
 import 'package:portfoliov2/app/modules/portfolio/domain/usecases/save_portfolio.dart';
 import 'package:portfoliov2/app/modules/portfolio/domain/usecases/save_project.dart';
 import 'package:portfoliov2/app/modules/portfolio/domain/usecases/update_portfolio.dart';
+import 'package:portfoliov2/app/modules/portfolio/domain/usecases/update_project.dart';
 import 'package:portfoliov2/app/modules/portfolio/external/firebase_portfolio_datasource.dart';
 import 'package:portfoliov2/app/modules/portfolio/external/firebase_project_datasource.dart';
 import 'package:portfoliov2/app/modules/portfolio/infra/repositories/portfolio_repository.dart';
@@ -50,6 +51,7 @@ class PortfolioModule extends Module {
         Bind.singleton((i) => RemoveProject(iProjectRepository: i())),
         Bind.singleton((i) => RemoveAllProjectByPortfolioId(iProjectRepository: i())),
         Bind.singleton((i) => GetProjectById(iProjectRepository: i())),
+        Bind.singleton((i) => UpdateProject(iProjectRepository: i())),
         Bind.singleton(
           (i) => PortfolioBloc(
             iFetchPortfolios: i(),
@@ -65,6 +67,7 @@ class PortfolioModule extends Module {
             iSaveProject: i(),
             iRemoveProject: i(),
             iGetProjectById: i(),
+            iUpdateProject: i(),
           ),
         ),
       ];

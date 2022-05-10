@@ -3,6 +3,7 @@ import 'package:portfoliov2/app/modules/portfolio/domain/usecases/get_project_by
 import 'package:portfoliov2/app/modules/portfolio/domain/usecases/get_projects_by_portfolio.dart';
 import 'package:portfoliov2/app/modules/portfolio/domain/usecases/remove_project.dart';
 import 'package:portfoliov2/app/modules/portfolio/domain/usecases/save_project.dart';
+import 'package:portfoliov2/app/modules/portfolio/domain/usecases/update_project.dart';
 import 'package:portfoliov2/app/modules/portfolio/presenter/portfolio/bloc/portfolio_state.dart';
 import 'package:portfoliov2/app/modules/portfolio/presenter/project/bloc/project_event.dart';
 import 'package:portfoliov2/app/modules/portfolio/presenter/project/bloc/project_state.dart';
@@ -12,17 +13,20 @@ class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
   final ISaveProject iSaveProject;
   final IRemoveProject iRemoveProject;
   final IGetProjectById iGetProjectById;
+  final IUpdateProject iUpdateProject;
 
   ProjectBloc({
     required this.iGetProjectsByPortfolio,
     required this.iSaveProject,
     required this.iRemoveProject,
     required this.iGetProjectById,
+    required this.iUpdateProject,
   }) : super(InitialProjectState()) {
     on<GetProjectsByPortfolioEvent>(_getProjectsByPortfolioEvent);
     on<SaveProjectEvent>(_saveProjectEvent);
     on<RemoveProjectEvent>(_removeProjectEvent);
     on<GetProjectByIdEvent>(_getProjectByIdEvent);
+    on<UpdateProjectEvent>(_updateProjectEvent);
   }
 
   Future<void> _getProjectsByPortfolioEvent(GetProjectsByPortfolioEvent event, emit) async {
@@ -43,6 +47,19 @@ class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
         filePickerResult: event.filePickerResult,
       );
       emit(SuccessSaveProjectState());
+    } catch (e) {
+      emit(ErrorProjectState(message: e.toString()));
+    }
+  }
+
+  Future<void> _updateProjectEvent(UpdateProjectEvent event, emit) async {
+    emit(LoadingProjectState());
+    try {
+      await iUpdateProject.updateProject(
+        project: event.project,
+        filePickerResult: event.filePickerResult,
+      );
+      emit(SuccessUpdateProjectState(project: event.project));
     } catch (e) {
       emit(ErrorProjectState(message: e.toString()));
     }

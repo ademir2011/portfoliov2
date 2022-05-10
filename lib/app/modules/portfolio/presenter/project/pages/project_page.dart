@@ -8,6 +8,7 @@ import 'package:portfoliov2/app/modules/portfolio/presenter/project/bloc/project
 import 'package:portfoliov2/app/modules/portfolio/presenter/project/bloc/project_event.dart';
 import 'package:portfoliov2/app/modules/portfolio/presenter/project/bloc/project_state.dart';
 import 'package:portfoliov2/app/modules/portfolio/presenter/project/pages/remove_project_dialog_page.dart';
+import 'package:portfoliov2/app/modules/portfolio/presenter/project/pages/update_project_dialog_page.dart';
 import 'package:portfoliov2/app/modules/portfolio/presenter/widgets/video_template_widget.dart';
 import 'package:portfoliov2/shared/widgets/icon_link_widget.dart';
 import 'package:portfoliov2/shared/widgets/template_widget.dart';
@@ -48,6 +49,17 @@ class _ProjectPageState extends State<ProjectPage> {
     );
   }
 
+  void _updateProjectDialog({required Project project}) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return UpdateProjectDialogPage(
+          project: project,
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -67,6 +79,7 @@ class _ProjectPageState extends State<ProjectPage> {
             title: 'PROJETOS',
             topMenuEnum: TopMenuEnum.projetos,
             removeOnPressed: userLogged ? () => _removeProjectDialog(project: state.project) : null,
+            editOnPressed: userLogged ? () => _updateProjectDialog(project: state.project) : null,
             backButtonOnPress: () => Modular.to.navigate('/portfolio/'),
             child: Padding(
               padding: const EdgeInsets.all(40),

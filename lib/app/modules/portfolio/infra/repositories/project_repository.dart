@@ -25,9 +25,8 @@ class ProjectRepository implements IProjectRepository {
   }
 
   @override
-  Future<void> updateProject({required Project project}) {
-    // TODO: implement updateProject
-    throw UnimplementedError();
+  Future<void> updateProject({required Project project, required FilePickerResult? filePickerResult}) async {
+    return await iProjectDatasource.updateProject(project: project, filePickerResult: filePickerResult);
   }
 
   @override
