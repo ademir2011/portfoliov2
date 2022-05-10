@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:portfoliov2/app/modules/administracao/presenter/bloc/auth_bloc.dart';
 import 'package:portfoliov2/app/modules/home/widgets/generic_divider_widget.dart';
 import 'package:portfoliov2/app/modules/portfolio/domain/entities/project.dart';
-import 'package:portfoliov2/app/modules/portfolio/presenter/portfolio/bloc/portfolio_state.dart';
 import 'package:portfoliov2/app/modules/portfolio/presenter/project/bloc/project_bloc.dart';
 import 'package:portfoliov2/app/modules/portfolio/presenter/project/bloc/project_event.dart';
 import 'package:portfoliov2/app/modules/portfolio/presenter/project/bloc/project_state.dart';
@@ -12,6 +12,7 @@ import 'package:portfoliov2/app/modules/portfolio/presenter/widgets/video_templa
 import 'package:portfoliov2/shared/widgets/icon_link_widget.dart';
 import 'package:portfoliov2/shared/widgets/template_widget.dart';
 import 'package:portfoliov2/shared/widgets/top_menu_widget.dart';
+import 'dart:html' as html;
 
 class ProjectPage extends StatefulWidget {
   final String projectId;
@@ -50,6 +51,7 @@ class _ProjectPageState extends State<ProjectPage> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final userLogged = Modular.get<AuthBloc>().isLogged();
 
     return BlocBuilder<ProjectBloc, ProjectState>(
       bloc: projectBloc,
@@ -64,7 +66,7 @@ class _ProjectPageState extends State<ProjectPage> {
           return TemplateWidget(
             title: 'PROJETOS',
             topMenuEnum: TopMenuEnum.projetos,
-            removeOnPressed: () => _removeProjectDialog(project: state.project),
+            removeOnPressed: userLogged ? () => _removeProjectDialog(project: state.project) : null,
             backButtonOnPress: () => Modular.to.navigate('/portfolio/'),
             child: Padding(
               padding: const EdgeInsets.all(40),
@@ -138,8 +140,10 @@ class ContentWidget extends StatelessWidget {
           (url) {
             if (url.contains('github') || url.contains('figma') || url.contains('playstore')) {
               return IconLinkWidget(
-                onPressed: () {},
-                color: Theme.of(context).colorScheme.surfaceVariant,
+                onPressed: () {
+                  html.window.open(url, "_blank");
+                },
+                color: Theme.of(context).colorScheme.primary,
                 pathAssetIcon: url.contains('playstore')
                     ? 'lib\\assets\\icons\\play-store.png'
                     : url.contains('github')

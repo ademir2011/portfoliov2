@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:portfoliov2/app/modules/home/widgets/generic_divider_widget.dart';
 import 'package:portfoliov2/app/modules/home/widgets/ring_widget.dart';
 import 'package:portfoliov2/shared/widgets/icon_link_widget.dart';
+import 'dart:html' as html;
 
 class SidePerfilWidget extends StatelessWidget {
   const SidePerfilWidget({
@@ -46,17 +47,17 @@ class SidePerfilWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               IconLinkWidget(
-                onPressed: () {},
+                onPressed: () => html.window.open('https://www.instagram.com/ademir.bezerra/', "_blank"),
                 color: const Color(0xffE95950),
                 pathAssetIcon: 'lib\\assets\\icons\\instagram.png',
               ),
               IconLinkWidget(
-                onPressed: () {},
+                onPressed: () => html.window.open('https://www.linkedin.com/in/ademir-bezerra/', "_blank"),
                 color: const Color(0xff0981CC),
                 pathAssetIcon: 'lib\\assets\\icons\\linkedin.png',
               ),
               IconLinkWidget(
-                onPressed: () {},
+                onPressed: () => html.window.open('https://github.com/ademir2011/', "_blank"),
                 color: const Color(0xffE5E5E5),
                 pathAssetIcon: 'lib\\assets\\icons\\github.png',
               ),
