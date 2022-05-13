@@ -47,7 +47,7 @@ class _UpdateProjectDialogPageState extends State<UpdateProjectDialogPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       titleController.text = widget.project.name ?? '';
       descriptionController.text = widget.project.description ?? '';
     });

@@ -10,7 +10,7 @@ import 'package:portfoliov2/shared/widgets/outlined_button_widget.dart';
 import 'package:portfoliov2/shared/widgets/textformfield_widget.dart';
 
 class UpdatePortfolioDialogPage extends StatefulWidget {
-  UpdatePortfolioDialogPage({
+  const UpdatePortfolioDialogPage({
     Key? key,
     required this.portfolio,
   }) : super(key: key);
@@ -33,7 +33,7 @@ class _UpdatePortfolioDialogPageState extends State<UpdatePortfolioDialogPage> {
     // TODO: implement initState
     super.initState();
 
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       titleController.text = widget.portfolio.title;
     });
   }

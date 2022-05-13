@@ -27,7 +27,7 @@ class _ProjectsGroupButtonWidgetState extends State<ProjectsGroupButtonWidget> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       projectBloc.add(GetProjectsByPortfolioEvent(portfolio: widget.portfolio));
     });
   }
@@ -53,34 +53,29 @@ class _ProjectsGroupButtonWidgetState extends State<ProjectsGroupButtonWidget> {
         }
 
         if (state is SuccessProjectState) {
-          return SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                ...state.projects.map((project) {
-                  return Row(
-                    children: [
-                      ProjectButtonWidget(
-                        title: project.name.toString(),
-                        onTap: () => Modular.to.navigate('/portfolio/project/${project.id}'),
-                      ),
-                      const SizedBox(width: 20),
-                    ],
-                  );
-                }).toList(),
-                if (state.projects.isEmpty)
-                  ProjectButtonWidget(
-                    title: 'Não há projetos cadastrados nessa categoria.',
-                    onTap: () {},
-                  ),
-                if (state.projects.isEmpty) const SizedBox(width: 25),
-                if (authBloc.isLogged())
-                  ProjectButtonWidget(
-                    icon: Icons.add,
-                    onTap: () => _addProjectDialog(portfolio: widget.portfolio),
-                  ),
-              ],
-            ),
+          return Wrap(
+            spacing: 20,
+            runSpacing: 20,
+            direction: Axis.horizontal,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            children: [
+              ...state.projects.map((project) {
+                return ProjectButtonWidget(
+                  title: project.name.toString(),
+                  onTap: () => Modular.to.navigate('/portfolio/project/${project.id}'),
+                );
+              }).toList(),
+              if (state.projects.isEmpty)
+                ProjectButtonWidget(
+                  title: 'Não há projetos cadastrados nessa categoria.',
+                  onTap: () {},
+                ),
+              if (authBloc.isLogged())
+                ProjectButtonWidget(
+                  icon: Icons.add,
+                  onTap: () => _addProjectDialog(portfolio: widget.portfolio),
+                ),
+            ],
           );
         }
 

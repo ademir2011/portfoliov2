@@ -33,7 +33,7 @@ class _ProjectPageState extends State<ProjectPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       projectBloc.add(GetProjectByIdEvent(id: widget.projectId));
     });
   }

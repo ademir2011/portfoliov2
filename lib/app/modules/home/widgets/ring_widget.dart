@@ -30,11 +30,11 @@ class RingWidget extends StatelessWidget {
             boxShadow: [
               BoxShadow(
                 color: Theme.of(context).colorScheme.secondary,
-                blurRadius: 10,
+                blurRadius: 7.5,
               ),
               BoxShadow(
                 color: Theme.of(context).colorScheme.tertiary,
-                blurRadius: 5,
+                blurRadius: 2.5,
               ),
             ],
           ),
@@ -50,7 +50,7 @@ class RingWidget extends StatelessWidget {
               ),
               BoxShadow(
                 color: Theme.of(context).scaffoldBackgroundColor,
-                blurRadius: 5,
+                blurRadius: 4,
                 spreadRadius: -3,
               ),
             ],

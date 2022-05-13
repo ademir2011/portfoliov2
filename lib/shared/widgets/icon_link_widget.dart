@@ -34,11 +34,11 @@ class IconLinkWidget extends StatelessWidget {
           ],
         ),
         child: Padding(
-          padding: const EdgeInsets.all(6),
+          padding: const EdgeInsets.all(7.5),
           child: Image.asset(
             pathAssetIcon,
-            height: 50,
-            width: 50,
+            height: 40,
+            width: 40,
           ),
         ),
       ),

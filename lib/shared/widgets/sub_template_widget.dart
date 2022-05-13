@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:portfoliov2/app/modules/home/widgets/generic_divider_widget.dart';
-import 'package:portfoliov2/shared/widgets/side_perfil_widget.dart';
 
 class SubTemplateWidget extends StatelessWidget {
   const SubTemplateWidget({
@@ -22,69 +21,65 @@ class SubTemplateWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SidePerfilWidget(),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+        const SizedBox(height: 63),
+        Padding(
+          padding: EdgeInsets.only(left: backButtonOnPress != null ? 0 : 40),
+          child: Row(
             children: [
-              const SizedBox(height: 63),
-              Padding(
-                padding: EdgeInsets.only(left: backButtonOnPress != null ? 0 : 40),
-                child: Row(
-                  children: [
-                    if (backButtonOnPress != null)
-                      SizedBox(
-                        width: 40,
-                        child: TextButton(
-                          onPressed: backButtonOnPress,
-                          child: Text(
-                            '<',
-                            style: Theme.of(context).textTheme.titleLarge,
-                          ),
-                        ),
-                      ),
-                    Text(
-                      title,
+              if (backButtonOnPress != null)
+                SizedBox(
+                  width: 40,
+                  child: TextButton(
+                    onPressed: backButtonOnPress,
+                    child: Text(
+                      '<',
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
-                    const SizedBox(width: 25),
-                    if (addOnPressed != null)
-                      IconButtonWidget(
-                        icon: Icons.add,
-                        onPressed: addOnPressed,
-                      ),
-                    const SizedBox(width: 25),
-                    if (editOnPressed != null)
-                      IconButtonWidget(
-                        icon: Icons.edit,
-                        onPressed: editOnPressed,
-                      ),
-                    const SizedBox(width: 25),
-                    if (removeOnPressed != null)
-                      IconButtonWidget(
-                        icon: Icons.delete,
-                        onPressed: removeOnPressed,
-                      ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 10),
-              const GenericDividerWidget(width: 250),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const GenericDividerWidget(
-                    width: 1.5,
-                    height: 600,
-                    vertical: true,
                   ),
-                  Expanded(child: child),
-                ],
+                ),
+              Text(
+                title,
+                style: Theme.of(context).textTheme.titleLarge,
               ),
+              const SizedBox(width: 25),
+              if (addOnPressed != null)
+                IconButtonWidget(
+                  icon: Icons.add,
+                  onPressed: addOnPressed,
+                ),
+              const SizedBox(width: 25),
+              if (editOnPressed != null)
+                IconButtonWidget(
+                  icon: Icons.edit,
+                  onPressed: editOnPressed,
+                ),
+              const SizedBox(width: 25),
+              if (removeOnPressed != null)
+                IconButtonWidget(
+                  icon: Icons.delete,
+                  onPressed: removeOnPressed,
+                ),
             ],
+          ),
+        ),
+        const SizedBox(height: 10),
+        const GenericDividerWidget(width: 450),
+        Expanded(
+          child: SingleChildScrollView(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const GenericDividerWidget(
+                  width: 1.5,
+                  height: 600,
+                  vertical: true,
+                ),
+                Expanded(child: child),
+              ],
+            ),
           ),
         ),
       ],

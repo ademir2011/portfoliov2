@@ -5,6 +5,7 @@ import 'package:portfoliov2/app/modules/administracao/presenter/bloc/auth_bloc.d
 import 'package:portfoliov2/app/modules/administracao/presenter/bloc/auth_event.dart';
 import 'package:portfoliov2/app/modules/administracao/presenter/bloc/auth_state.dart';
 import 'package:portfoliov2/app/modules/home/widgets/generic_divider_widget.dart';
+import 'package:portfoliov2/app/modules/home/widgets/ring_widget.dart';
 
 enum TopMenuEnum { inicio, dashboard, projetos, trajetoria, certificacoes, administracao }
 
@@ -21,160 +22,149 @@ class TopMenuWidget extends StatefulWidget {
 
 class _TopMenuWidgetState extends State<TopMenuWidget> {
   final authBloc = Modular.get<AuthBloc>();
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 100,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          if (widget.topMenuEnum != TopMenuEnum.inicio) const SizedBox(width: 40),
+          if (widget.topMenuEnum != TopMenuEnum.inicio)
+            RingWidget(
+              width: 65,
+              height: 65,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(100),
+                child: Image.asset(
+                  'lib\\assets\\images\\eu.jpg',
+                  height: 45,
+                  width: 45,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          if (widget.topMenuEnum != TopMenuEnum.inicio) const SizedBox(width: 40),
+          if (widget.topMenuEnum != TopMenuEnum.inicio)
+            const GenericDividerWidget(height: 50, width: 1.5, vertical: true),
+          if (widget.topMenuEnum != TopMenuEnum.inicio) const SizedBox(width: 40),
+          if (widget.topMenuEnum != TopMenuEnum.inicio)
+            Text(
+              'ADEMIR',
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
+          const Spacer(),
+          MenuItemWidget(
+            title: 'INÍCIO',
+            onPressed: () => Modular.to.navigate('/'),
+            selected: widget.topMenuEnum == TopMenuEnum.inicio,
+          ),
+          const SizedBox(width: 20),
+          const MenuItemWidget(
+            title: 'DASHBOARD',
+            onPressed: null,
+          ),
+          const SizedBox(width: 20),
+          MenuItemWidget(
+            title: 'PROJETOS',
+            selected: widget.topMenuEnum == TopMenuEnum.projetos,
+            onPressed: () => Modular.to.navigate('/portfolio/'),
+          ),
+          const SizedBox(width: 20),
+          const MenuItemWidget(
+            title: 'TRAJETÓRIA',
+            onPressed: null,
+          ),
+          const SizedBox(width: 20),
+          const MenuItemWidget(
+            title: 'CERTIFICAÇÕES',
+            onPressed: null,
+          ),
+          const SizedBox(width: 20),
+          MenuItemWidget(
+            title: 'ADMINISTRAÇÃO',
+            selected: widget.topMenuEnum == TopMenuEnum.administracao,
+            onPressed: () => Modular.to.navigate('/administracao/'),
+          ),
+          if (authBloc.isLogged())
+            Row(
+              children: [
+                const SizedBox(width: 20),
+                Container(
+                  width: 1,
+                  height: 15,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+                const SizedBox(width: 20),
+                BlocBuilder<AuthBloc, AuthState>(
+                  bloc: authBloc,
+                  builder: (ctx, state) {
+                    if (state is SuccessLogoutAuthState) {
+                      Modular.to.pushNamed('/');
+                    }
+
+                    if (state is LoadingAuthState) {
+                      return const CircularProgressIndicator();
+                    }
+
+                    return IconButton(
+                      onPressed: () => authBloc.add(LogoutAuthEvent()),
+                      icon: const Icon(Icons.exit_to_app),
+                    );
+                  },
+                ),
+              ],
+            ),
+          const SizedBox(width: 40),
+        ],
+      ),
+    );
+  }
+}
+
+class MenuItemWidget extends StatelessWidget {
+  final void Function()? onPressed;
+  final String title;
+  final bool selected;
+
+  const MenuItemWidget({
+    Key? key,
+    required this.onPressed,
+    required this.title,
+    this.selected = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.centerRight,
-      child: FittedBox(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 50),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      TextButton(
-                        onPressed: () => Modular.to.pushNamedAndRemoveUntil('/', (_) => true),
-                        child: Text(
-                          'INÍCIO',
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
-                      ),
-                      if (widget.topMenuEnum == TopMenuEnum.inicio)
-                        const Padding(
-                          padding: EdgeInsets.only(left: 8),
-                          child: GenericDividerWidget(width: 50),
-                        ),
-                    ],
-                  ),
-                  const SizedBox(width: 20),
-                  Column(
-                    children: [
-                      TextButton(
-                        onPressed: null,
-                        child: Text(
-                          'DASHBOARD',
-                          style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                                color: Theme.of(context).colorScheme.primary.withOpacity(0.5),
-                              ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(width: 20),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      TextButton(
-                        onPressed: () => Modular.to.pushNamedAndRemoveUntil('/portfolio/', (_) => true),
-                        child: Text(
-                          'PROJETOS',
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
-                      ),
-                      if (widget.topMenuEnum == TopMenuEnum.projetos)
-                        const Padding(
-                          padding: EdgeInsets.only(left: 8),
-                          child: GenericDividerWidget(width: 75),
-                        ),
-                    ],
-                  ),
-                  const SizedBox(width: 20),
-                  Column(
-                    children: [
-                      TextButton(
-                        onPressed: null,
-                        child: Text(
-                          'TRAJETÓRIA',
-                          style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                                color: Theme.of(context).colorScheme.primary.withOpacity(0.5),
-                              ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(width: 20),
-                  Column(
-                    children: [
-                      TextButton(
-                        onPressed: null,
-                        child: Text(
-                          'CERTIFICAÇÕES',
-                          style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                                color: Theme.of(context).colorScheme.primary.withOpacity(0.5),
-                              ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(width: 20),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      TextButton(
-                        onPressed: () => Modular.to.pushNamedAndRemoveUntil('/administracao/', (_) => true),
-                        child: Text(
-                          'ADMINISTRAÇÃO',
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
-                      ),
-                      if (widget.topMenuEnum == TopMenuEnum.administracao)
-                        const Padding(
-                          padding: EdgeInsets.only(left: 8),
-                          child: GenericDividerWidget(width: 75),
-                        ),
-                    ],
-                  ),
-                  if (authBloc.isLogged())
-                    Row(
-                      children: [
-                        const SizedBox(width: 5),
-                        Container(
-                          width: 1,
-                          height: 15,
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                        const SizedBox(width: 10),
-                        Text(
-                          'Você está logado.',
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
-                        const SizedBox(width: 20),
-                        BlocBuilder<AuthBloc, AuthState>(
-                          bloc: authBloc,
-                          builder: (ctx, state) {
-                            if (state is SuccessLogoutAuthState) {
-                              Modular.to.pushNamed('/');
-                            }
-
-                            if (state is LoadingAuthState) {
-                              return const CircularProgressIndicator();
-                            }
-
-                            return IconButton(
-                              onPressed: () {
-                                authBloc.add(LogoutAuthEvent());
-                              },
-                              icon: const Icon(
-                                Icons.exit_to_app,
-                              ),
-                            );
-                          },
-                        ),
-                      ],
+    final size = MediaQuery.of(context).size;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        TextButton(
+          onPressed: onPressed,
+          child: Text(
+            title,
+            style: onPressed == null
+                ? Theme.of(context).textTheme.titleMedium!.copyWith(
+                      color: Theme.of(context).colorScheme.primary.withOpacity(0.5),
+                      fontSize: size.width < 1400
+                          ? (size.width / 100) - 1
+                          : Theme.of(context).textTheme.titleMedium!.fontSize,
+                    )
+                : Theme.of(context).textTheme.titleMedium!.copyWith(
+                      fontSize: size.width < 1400
+                          ? (size.width / 100) - 1
+                          : Theme.of(context).textTheme.titleMedium!.fontSize,
                     ),
-                ],
-              ),
-            ],
           ),
         ),
-      ),
+        if (selected)
+          Padding(
+            padding: const EdgeInsets.only(left: 8),
+            child: GenericDividerWidget(width: size.width < 1400 ? 25 : 50),
+          ),
+      ],
     );
   }
 }
