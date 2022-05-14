@@ -9,6 +9,7 @@ class Project {
   List<String>? tags;
   List<String>? socialNetwoksUrl;
   String? urlVideo;
+  String? urlThumbnail;
 
   Project({
     this.id,
@@ -21,5 +22,6 @@ class Project {
     this.tags,
     this.socialNetwoksUrl,
     this.urlVideo,
+    this.urlThumbnail,
   });
 }

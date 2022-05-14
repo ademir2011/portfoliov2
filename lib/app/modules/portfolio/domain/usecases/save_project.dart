@@ -5,7 +5,8 @@ import 'package:portfoliov2/app/modules/portfolio/domain/repositories/project_re
 abstract class ISaveProject {
   Future<void> saveProject({
     required Project project,
-    required FilePickerResult? filePickerResult,
+    required FilePickerResult? filePickerResultImage,
+    required FilePickerResult? filePickerResultVideo,
   });
 }
 
@@ -15,10 +16,15 @@ class SaveProject implements ISaveProject {
   SaveProject({required this.iProjectRepository});
 
   @override
-  Future<void> saveProject({required Project project, required FilePickerResult? filePickerResult}) async {
+  Future<void> saveProject({
+    required Project project,
+    required FilePickerResult? filePickerResultImage,
+    required FilePickerResult? filePickerResultVideo,
+  }) async {
     return await iProjectRepository.saveProject(
       project: project,
-      filePickerResult: filePickerResult,
+      filePickerResultImage: filePickerResultImage,
+      filePickerResultVideo: filePickerResultVideo,
     );
   }
 }

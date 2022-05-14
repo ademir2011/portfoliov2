@@ -44,7 +44,8 @@ class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
     try {
       await iSaveProject.saveProject(
         project: event.project,
-        filePickerResult: event.filePickerResult,
+        filePickerResultImage: event.filePickerResultImage,
+        filePickerResultVideo: event.filePickerResultVideo,
       );
       emit(SuccessSaveProjectState());
     } catch (e) {
@@ -57,7 +58,8 @@ class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
     try {
       await iUpdateProject.updateProject(
         project: event.project,
-        filePickerResult: event.filePickerResult,
+        filePickerResultImage: event.filePickerResultImage,
+        filePickerResultVideo: event.filePickerResultVideo,
       );
       emit(SuccessUpdateProjectState(project: event.project));
     } catch (e) {

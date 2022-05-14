@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class IconLinkWidget extends StatelessWidget {
+class IconLinkWidget extends StatefulWidget {
   final Color color;
   final String pathAssetIcon;
   final void Function() onPressed;
@@ -12,19 +12,30 @@ class IconLinkWidget extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<IconLinkWidget> createState() => _IconLinkWidgetState();
+}
+
+class _IconLinkWidgetState extends State<IconLinkWidget> {
+  var isHoved = false;
+
+  @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onPressed,
+      onTap: widget.onPressed,
+      onHover: (hover) {
+        setState(() {
+          isHoved = hover;
+        });
+      },
       borderRadius: BorderRadius.circular(50),
       child: Container(
         decoration: BoxDecoration(
-          // color: Theme.of(context).scaffoldBackgroundColor,
           borderRadius: BorderRadius.circular(50),
-          border: Border.all(color: color),
+          border: Border.all(color: widget.color),
           boxShadow: [
             BoxShadow(
-              color: color,
-              blurRadius: 6,
+              color: widget.color,
+              blurRadius: isHoved ? 15 : 6,
             ),
             BoxShadow(
               color: Theme.of(context).scaffoldBackgroundColor,
@@ -36,7 +47,7 @@ class IconLinkWidget extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(7.5),
           child: Image.asset(
-            pathAssetIcon,
+            widget.pathAssetIcon,
             height: 40,
             width: 40,
           ),

@@ -17,19 +17,23 @@ class GetProjectByIdEvent extends ProjectEvent {
 
 class SaveProjectEvent extends ProjectEvent {
   final Project project;
-  final FilePickerResult? filePickerResult;
+  final FilePickerResult? filePickerResultImage;
+  final FilePickerResult? filePickerResultVideo;
   SaveProjectEvent({
     required this.project,
-    required this.filePickerResult,
+    required this.filePickerResultImage,
+    required this.filePickerResultVideo,
   });
 }
 
 class UpdateProjectEvent extends ProjectEvent {
   final Project project;
-  final FilePickerResult? filePickerResult;
+  final FilePickerResult? filePickerResultImage;
+  final FilePickerResult? filePickerResultVideo;
   UpdateProjectEvent({
     required this.project,
-    required this.filePickerResult,
+    required this.filePickerResultImage,
+    required this.filePickerResultVideo,
   });
 }
 

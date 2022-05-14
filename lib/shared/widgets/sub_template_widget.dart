@@ -30,15 +30,13 @@ class SubTemplateWidget extends StatelessWidget {
           child: Row(
             children: [
               if (backButtonOnPress != null)
-                SizedBox(
-                  width: 40,
-                  child: TextButton(
-                    onPressed: backButtonOnPress,
-                    child: Text(
-                      '<',
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
+                IconButton(
+                  onPressed: backButtonOnPress,
+                  icon: const ImageIcon(
+                    AssetImage('lib\\assets\\icons\\symbolback.png'),
                   ),
+                  splashRadius: 15,
+                  iconSize: 30,
                 ),
               Text(
                 title,

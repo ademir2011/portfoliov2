@@ -9,7 +9,6 @@ import 'package:portfoliov2/app/modules/portfolio/presenter/project/bloc/project
 import 'package:portfoliov2/app/modules/portfolio/presenter/project/bloc/project_state.dart';
 import 'package:portfoliov2/app/modules/portfolio/presenter/project/pages/remove_project_dialog_page.dart';
 import 'package:portfoliov2/app/modules/portfolio/presenter/project/pages/update_project_dialog_page.dart';
-import 'package:portfoliov2/app/modules/portfolio/presenter/widgets/video_template_widget.dart';
 import 'package:portfoliov2/shared/widgets/icon_link_widget.dart';
 import 'package:portfoliov2/shared/widgets/template_widget.dart';
 import 'package:portfoliov2/shared/widgets/top_menu_widget.dart';
@@ -28,6 +27,7 @@ class ProjectPage extends StatefulWidget {
 
 class _ProjectPageState extends State<ProjectPage> {
   final projectBloc = Modular.get<ProjectBloc>();
+  final userLogged = Modular.get<AuthBloc>().isLogged();
 
   @override
   void initState() {
@@ -63,7 +63,6 @@ class _ProjectPageState extends State<ProjectPage> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final userLogged = Modular.get<AuthBloc>().isLogged();
 
     return BlocBuilder<ProjectBloc, ProjectState>(
       bloc: projectBloc,
@@ -96,14 +95,12 @@ class _ProjectPageState extends State<ProjectPage> {
                           ),
                         ),
                         const SizedBox(width: 25),
-                        VideoTemplateWidget(height: 500, width: 350, urlVideo: state.project.urlVideo),
                       ],
                     )
                   : Column(
                       children: [
                         ContentWidget(project: state.project),
                         const SizedBox(height: 25),
-                        VideoTemplateWidget(height: 500, width: 350, urlVideo: state.project.urlVideo),
                         const SizedBox(height: 25),
                       ],
                     ),

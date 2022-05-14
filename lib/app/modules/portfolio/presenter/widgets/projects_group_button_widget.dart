@@ -62,6 +62,7 @@ class _ProjectsGroupButtonWidgetState extends State<ProjectsGroupButtonWidget> {
               ...state.projects.map((project) {
                 return ProjectButtonWidget(
                   title: project.name.toString(),
+                  urlThumbnail: project.urlThumbnail,
                   onTap: () => Modular.to.navigate('/portfolio/project/${project.id}'),
                 );
               }).toList(),

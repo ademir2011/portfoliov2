@@ -25,6 +25,7 @@ class FirebasePortfolioDatasource implements IPortfolioDatasource {
       throw Exception(e.toString());
     }
     final portfolios = portfoliosMap.docs.map((e) => PortfolioModel.fromMap(e.data())).toList();
+    portfolios.sort((pa, pb) => pa.createdAt!.compareTo(pb.createdAt!));
     return portfolios;
   }
 

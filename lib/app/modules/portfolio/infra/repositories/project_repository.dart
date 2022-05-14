@@ -20,13 +20,29 @@ class ProjectRepository implements IProjectRepository {
   }
 
   @override
-  Future<void> saveProject({required Project project, required FilePickerResult? filePickerResult}) async {
-    return await iProjectDatasource.saveProject(project: project, filePickerResult: filePickerResult);
+  Future<void> saveProject({
+    required Project project,
+    required FilePickerResult? filePickerResultImage,
+    required FilePickerResult? filePickerResultVideo,
+  }) async {
+    return await iProjectDatasource.saveProject(
+      project: project,
+      filePickerResultImage: filePickerResultImage,
+      filePickerResultVideo: filePickerResultVideo,
+    );
   }
 
   @override
-  Future<void> updateProject({required Project project, required FilePickerResult? filePickerResult}) async {
-    return await iProjectDatasource.updateProject(project: project, filePickerResult: filePickerResult);
+  Future<void> updateProject({
+    required Project project,
+    required FilePickerResult? filePickerResultImage,
+    required FilePickerResult? filePickerResultVideo,
+  }) async {
+    return await iProjectDatasource.updateProject(
+      project: project,
+      filePickerResultImage: filePickerResultImage,
+      filePickerResultVideo: filePickerResultVideo,
+    );
   }
 
   @override

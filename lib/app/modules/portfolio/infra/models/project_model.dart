@@ -13,6 +13,7 @@ class ProjectModel extends Project {
   List<String>? tags;
   List<String>? socialNetwoksUrl;
   String? urlVideo;
+  String? urlThumbnail;
 
   ProjectModel({
     this.id,
@@ -25,6 +26,7 @@ class ProjectModel extends Project {
     this.tags,
     this.socialNetwoksUrl,
     this.urlVideo,
+    this.urlThumbnail,
   });
 
   Map getMapFromList(List list) => {for (var item in list) '${list.indexOf(item)}': item};
@@ -43,6 +45,7 @@ class ProjectModel extends Project {
       'tags': tags != null ? getMapFromList(tags!) : [],
       'socialNetwoksUrl': socialNetwoksUrl != null ? getMapFromList(socialNetwoksUrl!) : [],
       'urlVideo': urlVideo,
+      'urlThumbnail': urlThumbnail,
     };
   }
 
@@ -58,6 +61,7 @@ class ProjectModel extends Project {
       tags: map['tags'] != null && (map['tags'] as List).isNotEmpty ? ProjectModel.getListFromMap(map['tags']) : null,
       socialNetwoksUrl: map['socialNetwoksUrl'] != null ? ProjectModel.getListFromMap(map['socialNetwoksUrl']) : null,
       urlVideo: map['urlVideo'],
+      urlThumbnail: map['urlThumbnail'],
     );
   }
 

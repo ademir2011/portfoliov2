@@ -19,7 +19,6 @@ class ProjectButtonWidget extends StatefulWidget {
 
 class _ProjectButtonWidgetState extends State<ProjectButtonWidget> {
   var isHoved = false;
-
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -36,26 +35,20 @@ class _ProjectButtonWidgetState extends State<ProjectButtonWidget> {
         decoration: isHoved
             ? BoxDecoration(
                 borderRadius: BorderRadius.circular(25),
-                boxShadow: [
-                  BoxShadow(
-                    color: Theme.of(context).colorScheme.secondary.withOpacity(.20),
-                    blurRadius: 7.5,
-                    spreadRadius: 4,
-                    offset: const Offset(0, -2),
-                  ),
-                  BoxShadow(
-                    color: Theme.of(context).colorScheme.tertiary.withOpacity(.20),
-                    blurRadius: 3.5,
-                    spreadRadius: 4,
-                    offset: const Offset(0, -2),
-                  ),
-                ],
+                gradient: LinearGradient(
+                  colors: [
+                    Theme.of(context).colorScheme.secondary,
+                    Theme.of(context).colorScheme.tertiary,
+                  ],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
               )
             : BoxDecoration(
                 borderRadius: BorderRadius.circular(25),
               ),
-        width: isHoved ? 325 : 300,
-        height: isHoved ? 200 : 175,
+        width: isHoved ? 330 : 300,
+        height: isHoved ? 205 : 175,
         child: Stack(
           alignment: Alignment.center,
           children: [
@@ -64,13 +57,21 @@ class _ProjectButtonWidgetState extends State<ProjectButtonWidget> {
               curve: Curves.linear,
               width: isHoved ? 324 : 299,
               height: isHoved ? 199 : 174,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(25),
-                child: Image.network(
-                  'https://cdn.dribbble.com/users/7073797/screenshots/15509388/a00b9c20-b6b1-4fb9-9bb8-d69764322182_4x.png',
-                  fit: BoxFit.cover,
-                ),
-              ),
+              decoration: widget.urlThumbnail == null
+                  ? BoxDecoration(
+                      borderRadius: BorderRadius.circular(25),
+                      color: Theme.of(context).colorScheme.inversePrimary,
+                    )
+                  : null,
+              child: widget.urlThumbnail != null
+                  ? ClipRRect(
+                      borderRadius: BorderRadius.circular(25),
+                      child: Image.network(
+                        widget.urlThumbnail!,
+                        fit: BoxFit.cover,
+                      ),
+                    )
+                  : null,
             ),
             AnimatedContainer(
               duration: const Duration(milliseconds: 325),
@@ -92,7 +93,7 @@ class _ProjectButtonWidgetState extends State<ProjectButtonWidget> {
             Align(
               alignment: Alignment.bottomLeft,
               child: widget.icon != null
-                  ? Icon(widget.icon)
+                  ? Align(alignment: Alignment.center, child: Icon(widget.icon))
                   : Padding(
                       padding: const EdgeInsets.all(20),
                       child: Text(

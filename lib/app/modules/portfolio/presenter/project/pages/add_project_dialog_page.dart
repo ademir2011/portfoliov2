@@ -33,13 +33,22 @@ class _AddProjectDialogPageState extends State<AddProjectDialogPage> {
   final playstoreController = TextEditingController();
   final figmaController = TextEditingController();
 
-  PlatformFile? pickedfile;
-  FilePickerResult? filePickerResult;
+  PlatformFile? pickedfileImage;
+  PlatformFile? pickedfileVideo;
+  FilePickerResult? filePickerResultImage;
+  FilePickerResult? filePickerResultVideo;
 
-  void _selectFile() async {
-    filePickerResult = await FilePicker.platform.pickFiles(type: FileType.video);
+  void _selectFileImage() async {
+    filePickerResultImage = await FilePicker.platform.pickFiles(type: FileType.image);
     setState(() {
-      if (filePickerResult != null) pickedfile = filePickerResult!.files.first;
+      if (filePickerResultImage != null) pickedfileImage = filePickerResultImage!.files.first;
+    });
+  }
+
+  void _selectFileVideo() async {
+    filePickerResultVideo = await FilePicker.platform.pickFiles(type: FileType.video);
+    setState(() {
+      if (filePickerResultVideo != null) pickedfileVideo = filePickerResultVideo!.files.first;
     });
   }
 
@@ -50,10 +59,13 @@ class _AddProjectDialogPageState extends State<AddProjectDialogPage> {
       content: DialogTemplateWidget(
         height: 700,
         width: 700,
-        child: BlocBuilder(
+        child: BlocBuilder<ProjectBloc, ProjectState>(
           bloc: widget.projectBloc,
           builder: (ctx, state) {
-            if (state is SuccessSaveProjectState) Modular.to.pushNamedAndRemoveUntil('/portfolio/', (_) => true);
+            if (state is SuccessSaveProjectState) {
+              Modular.to.pop();
+              Modular.to.navigate('/portfolio/');
+            }
 
             return Form(
               key: widget.formKey,
@@ -81,27 +93,60 @@ class _AddProjectDialogPageState extends State<AddProjectDialogPage> {
                     textArea: true,
                   ),
                   const SizedBox(height: 10),
-                  TextFormFieldWidget(
-                    hintText: 'Github',
-                    controller: githubController,
+                  Row(
+                    children: [
+                      Flexible(
+                        flex: 1,
+                        child: TextFormFieldWidget(
+                          hintText: 'Github',
+                          controller: githubController,
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Flexible(
+                        flex: 1,
+                        child: TextFormFieldWidget(
+                          hintText: 'Playstore',
+                          controller: playstoreController,
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Flexible(
+                        flex: 1,
+                        child: TextFormFieldWidget(
+                          hintText: 'Figma',
+                          controller: figmaController,
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 10),
-                  TextFormFieldWidget(
-                    hintText: 'Playstore',
-                    controller: playstoreController,
+                  Row(
+                    children: [
+                      Text(
+                        'Thumbnail',
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                      const Spacer(),
+                      OutlinedButtonWidget(
+                        title: pickedfileImage != null ? pickedfileImage!.name : 'SELECIONAR IMAGE',
+                        onPressed: _selectFileImage,
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 10),
-                  TextFormFieldWidget(
-                    hintText: 'Figma',
-                    controller: figmaController,
-                  ),
-                  const SizedBox(height: 10),
-                  Align(
-                    alignment: Alignment.center,
-                    child: OutlinedButtonWidget(
-                      title: pickedfile != null ? pickedfile!.name : 'SELECIONAR ARQUIVO',
-                      onPressed: _selectFile,
-                    ),
+                  Row(
+                    children: [
+                      Text(
+                        'Vídeo',
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                      const Spacer(),
+                      OutlinedButtonWidget(
+                        title: pickedfileVideo != null ? pickedfileVideo!.name : 'SELECIONAR VÍDEO',
+                        onPressed: _selectFileVideo,
+                      ),
+                    ],
                   ),
                   const Spacer(),
                   Text(
@@ -135,9 +180,11 @@ class _AddProjectDialogPageState extends State<AddProjectDialogPage> {
                                     playstoreController.text,
                                     figmaController.text,
                                   ],
-                                  urlVideo: pickedfile != null ? pickedfile!.name : null,
+                                  urlVideo: pickedfileVideo != null ? pickedfileVideo!.name : null,
+                                  urlThumbnail: pickedfileImage != null ? pickedfileImage!.name : null,
                                 ),
-                                filePickerResult: filePickerResult,
+                                filePickerResultImage: filePickerResultImage,
+                                filePickerResultVideo: filePickerResultVideo,
                               ),
                             );
                           }

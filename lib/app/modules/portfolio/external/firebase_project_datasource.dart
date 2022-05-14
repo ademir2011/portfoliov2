@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -43,8 +40,16 @@ class FirebaseProjectDatasource implements IProjectDatasource {
     }
   }
 
+  void saveVideo() {}
+
+  void saveImage() {}
+
   @override
-  Future<void> saveProject({required Project project, required FilePickerResult? filePickerResult}) async {
+  Future<void> saveProject({
+    required Project project,
+    required FilePickerResult? filePickerResultImage,
+    required FilePickerResult? filePickerResultVideo,
+  }) async {
     final projectCollection = firebaseFirestore.collection('projects');
 
     final projectModel = ProjectModel(
@@ -57,13 +62,27 @@ class FirebaseProjectDatasource implements IProjectDatasource {
       updatedAt: DateTime.now(),
     );
 
-    if (project.urlVideo != null && filePickerResult != null && filePickerResult.files.first.bytes != null) {
+    if (project.urlVideo != null && filePickerResultVideo != null && filePickerResultVideo.files.first.bytes != null) {
       final path = 'videos/${firebaseAuth.currentUser!.uid}/${project.urlVideo}';
       final ref = FirebaseStorage.instance.ref(path);
 
       try {
-        final uploadtask = await ref.putData(filePickerResult.files.first.bytes!);
-        projectModel.urlVideo = await uploadtask.ref.getDownloadURL();
+        final uploadtaskVideo = await ref.putData(filePickerResultVideo.files.first.bytes!);
+        projectModel.urlVideo = await uploadtaskVideo.ref.getDownloadURL();
+      } catch (e) {
+        throw Exception(e);
+      }
+    }
+
+    if (project.urlThumbnail != null &&
+        filePickerResultImage != null &&
+        filePickerResultImage.files.first.bytes != null) {
+      final path = 'images/${firebaseAuth.currentUser!.uid}/${project.urlThumbnail}';
+      final ref = FirebaseStorage.instance.ref(path);
+
+      try {
+        final uploadtaskImage = await ref.putData(filePickerResultImage.files.first.bytes!);
+        projectModel.urlThumbnail = await uploadtaskImage.ref.getDownloadURL();
       } catch (e) {
         throw Exception(e);
       }
@@ -73,18 +92,27 @@ class FirebaseProjectDatasource implements IProjectDatasource {
       DocumentReference docRef = await projectCollection.add(projectModel.toMap());
       projectModel.id = docRef.id;
       projectModel.userId = firebaseAuth.currentUser!.uid;
-      await updateProject(project: projectModel, filePickerResult: filePickerResult);
+      await updateProject(
+        project: projectModel,
+        filePickerResultVideo: null,
+        filePickerResultImage: null,
+      );
     } catch (e) {
       throw Exception(e);
     }
   }
 
   @override
-  Future<void> updateProject({required Project project, required FilePickerResult? filePickerResult}) async {
+  Future<void> updateProject({
+    required Project project,
+    required FilePickerResult? filePickerResultImage,
+    required FilePickerResult? filePickerResultVideo,
+  }) async {
     final projectCollection = firebaseFirestore.collection('projects');
 
     final projectModel = ProjectModel(
       urlVideo: project.urlVideo,
+      urlThumbnail: project.urlThumbnail,
       tags: project.tags,
       socialNetwoksUrl: project.socialNetwoksUrl,
       userId: project.userId,
@@ -95,6 +123,32 @@ class FirebaseProjectDatasource implements IProjectDatasource {
       createdAt: project.createdAt,
       updatedAt: DateTime.now(),
     );
+
+    if (project.urlVideo != null && filePickerResultVideo != null && filePickerResultVideo.files.first.bytes != null) {
+      final path = 'videos/${firebaseAuth.currentUser!.uid}/${project.urlVideo}';
+      final ref = FirebaseStorage.instance.ref(path);
+
+      try {
+        final uploadtaskVideo = await ref.putData(filePickerResultVideo.files.first.bytes!);
+        projectModel.urlVideo = await uploadtaskVideo.ref.getDownloadURL();
+      } catch (e) {
+        throw Exception(e);
+      }
+    }
+
+    if (project.urlThumbnail != null &&
+        filePickerResultImage != null &&
+        filePickerResultImage.files.first.bytes != null) {
+      final path = 'images/${firebaseAuth.currentUser!.uid}/${project.urlThumbnail}';
+      final ref = FirebaseStorage.instance.ref(path);
+
+      try {
+        final uploadtaskImage = await ref.putData(filePickerResultImage.files.first.bytes!);
+        projectModel.urlThumbnail = await uploadtaskImage.ref.getDownloadURL();
+      } catch (e) {
+        throw Exception(e);
+      }
+    }
 
     try {
       await projectCollection.doc(project.id).update(projectModel.toMap());
