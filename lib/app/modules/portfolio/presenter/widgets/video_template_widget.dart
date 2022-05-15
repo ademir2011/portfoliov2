@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:portfoliov2/shared/widgets/icon_link_widget.dart';
 import 'package:video_player/video_player.dart';
+import 'dart:html' as html;
 
 class VideoTemplateWidget extends StatefulWidget {
   double width;
@@ -9,7 +11,7 @@ class VideoTemplateWidget extends StatefulWidget {
   VideoTemplateWidget({
     Key? key,
     this.width = 300,
-    this.height = 600,
+    this.height = 450,
     this.urlVideo,
   }) : super(key: key);
 
@@ -34,7 +36,6 @@ class _VideoTemplateWidgetState extends State<VideoTemplateWidget> {
             }));
       videoPlayerController!.addListener(() => setState(() => {}));
       videoPlayerController!.setVolume(0);
-      videoPlayerController!.play();
     }
   }
 
@@ -51,49 +52,11 @@ class _VideoTemplateWidgetState extends State<VideoTemplateWidget> {
   Widget build(BuildContext context) {
     return widget.urlVideo == null
         ? Container()
-        : Stack(
-            alignment: Alignment.center,
+        : Column(
             children: [
-              Container(
+              SizedBox(
                 width: widget.width,
                 height: widget.height,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      Theme.of(context).colorScheme.secondary,
-                      Theme.of(context).colorScheme.tertiary,
-                    ],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Theme.of(context).colorScheme.secondary,
-                      blurRadius: 10,
-                    ),
-                    BoxShadow(
-                      color: Theme.of(context).colorScheme.tertiary,
-                      blurRadius: 5,
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                width: widget.width - 2.5,
-                height: widget.height - 2.5,
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: Theme.of(context).colorScheme.tertiary.withOpacity(.5),
-                    ),
-                    BoxShadow(
-                      color: Theme.of(context).scaffoldBackgroundColor,
-                      blurRadius: 10,
-                      spreadRadius: -2,
-                    ),
-                  ],
-                ),
                 child: videoPlayerController == null
                     ? const Center(
                         child: CircularProgressIndicator(),
@@ -115,6 +78,52 @@ class _VideoTemplateWidgetState extends State<VideoTemplateWidget> {
                         ),
                       ),
               ),
+              const SizedBox(height: 25),
+              Row(
+                children: [
+                  IconLinkWidget(
+                    pathAssetIcon: 'lib\\assets\\icons\\stop.png',
+                    color: Theme.of(context).colorScheme.primary,
+                    onPressed: () {
+                      videoPlayerController!.pause();
+                      videoPlayerController!.seekTo(const Duration(seconds: 0));
+                      setState(() {});
+                    },
+                  ),
+                  const SizedBox(width: 25),
+                  IconLinkWidget(
+                    pathAssetIcon: videoPlayerController!.value.isPlaying
+                        ? 'lib\\assets\\icons\\pause.png'
+                        : 'lib\\assets\\icons\\play.png',
+                    color: Theme.of(context).colorScheme.primary,
+                    onPressed: () {
+                      if (videoPlayerController!.value.isPlaying) {
+                        videoPlayerController!.pause();
+                      } else {
+                        videoPlayerController!.play();
+                      }
+
+                      setState(() {});
+                    },
+                  ),
+                  // const SizedBox(width: 25),
+                  // IconLinkWidget(
+                  //   pathAssetIcon: 'lib\\assets\\icons\\fullscreen.png',
+                  //   color: Theme.of(context).colorScheme.primary,
+                  //   onPressed: () {
+                  //     showDialog(
+                  //       context: context,
+                  //       builder: (ctx) {
+                  //         html.document.documentElement!.requestFullscreen();
+                  //         return Container(
+                  //           color: Colors.blue,
+                  //         );
+                  //       },
+                  //     );
+                  //   },
+                  // ),
+                ],
+              )
             ],
           );
   }

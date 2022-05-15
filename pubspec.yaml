@@ -79,6 +79,10 @@ flutter:
     - lib\assets\icons\sidemenuicon.png
     - lib\assets\icons\exiticon.png
     - lib\assets\icons\symbolback.png
+    - lib\assets\icons\fullscreen.png
+    - lib\assets\icons\play.png
+    - lib\assets\icons\stop.png
+    - lib\assets\icons\pause.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

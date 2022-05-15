@@ -9,6 +9,7 @@ import 'package:portfoliov2/app/modules/portfolio/presenter/project/bloc/project
 import 'package:portfoliov2/app/modules/portfolio/presenter/project/bloc/project_state.dart';
 import 'package:portfoliov2/app/modules/portfolio/presenter/project/pages/remove_project_dialog_page.dart';
 import 'package:portfoliov2/app/modules/portfolio/presenter/project/pages/update_project_dialog_page.dart';
+import 'package:portfoliov2/app/modules/portfolio/presenter/widgets/video_template_widget.dart';
 import 'package:portfoliov2/shared/widgets/icon_link_widget.dart';
 import 'package:portfoliov2/shared/widgets/template_widget.dart';
 import 'package:portfoliov2/shared/widgets/top_menu_widget.dart';
@@ -88,19 +89,21 @@ class _ProjectPageState extends State<ProjectPage> {
                       children: [
                         Flexible(
                           child: SizedBox(
-                            width: 500,
+                            width: 600,
                             child: ContentWidget(
                               project: state.project,
                             ),
                           ),
                         ),
                         const SizedBox(width: 25),
+                        VideoTemplateWidget(urlVideo: state.project.urlVideo),
                       ],
                     )
                   : Column(
                       children: [
                         ContentWidget(project: state.project),
                         const SizedBox(height: 25),
+                        VideoTemplateWidget(urlVideo: state.project.urlVideo),
                         const SizedBox(height: 25),
                       ],
                     ),
