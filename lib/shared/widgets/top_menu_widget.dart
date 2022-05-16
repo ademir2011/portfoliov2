@@ -4,7 +4,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:portfoliov2/app/modules/administracao/presenter/bloc/auth_bloc.dart';
 import 'package:portfoliov2/app/modules/administracao/presenter/bloc/auth_event.dart';
 import 'package:portfoliov2/app/modules/administracao/presenter/bloc/auth_state.dart';
-import 'package:portfoliov2/app/modules/home/widgets/generic_divider_widget.dart';
+import 'package:portfoliov2/shared/widgets/generic_divider_widget.dart';
 import 'package:portfoliov2/app/modules/home/widgets/ring_widget.dart';
 
 enum TopMenuEnum { inicio, dashboard, projetos, trajetoria, certificacoes, administracao }
@@ -71,9 +71,10 @@ class _TopMenuWidgetState extends State<TopMenuWidget> {
             onPressed: () => Modular.to.navigate('/portfolio/'),
           ),
           const SizedBox(width: 20),
-          const MenuItemWidget(
+          MenuItemWidget(
             title: 'TRAJETÓRIA',
-            onPressed: null,
+            selected: widget.topMenuEnum == TopMenuEnum.trajetoria,
+            onPressed: () => Modular.to.navigate('/trajectory/'),
           ),
           const SizedBox(width: 20),
           const MenuItemWidget(

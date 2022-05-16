@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:portfoliov2/shared/widgets/background_widget.dart';
 import 'package:portfoliov2/shared/widgets/icon_link_widget.dart';
 import 'package:portfoliov2/shared/widgets/sandwich_icon_menu_widget.dart';
 import 'package:portfoliov2/shared/widgets/sub_template_widget.dart';
@@ -34,6 +35,7 @@ class TemplateWidget extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
+          const BackgroundWidget(),
           Column(
             children: [
               if (size.width > 1000) TopMenuWidget(topMenuEnum: topMenuEnum),

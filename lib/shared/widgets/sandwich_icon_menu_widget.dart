@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:portfoliov2/app/modules/home/widgets/generic_divider_widget.dart';
+import 'package:portfoliov2/shared/widgets/generic_divider_widget.dart';
 
 class SandwichIconMenuWidget extends StatelessWidget {
   final String title;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:portfoliov2/app/modules/home/widgets/generic_divider_widget.dart';
+import 'package:portfoliov2/shared/widgets/generic_divider_widget.dart';
 import 'package:portfoliov2/app/modules/home/widgets/ring_widget.dart';
 import 'package:portfoliov2/shared/widgets/template_widget.dart';
 import 'package:portfoliov2/shared/widgets/top_menu_widget.dart';

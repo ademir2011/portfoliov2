@@ -4,12 +4,14 @@ class GenericDividerWidget extends StatelessWidget {
   final double height;
   final double width;
   final bool vertical;
+  final bool inverse;
 
   const GenericDividerWidget({
     Key? key,
     this.height = 1.5,
     this.width = 100,
     this.vertical = false,
+    this.inverse = false,
   }) : super(key: key);
 
   @override
@@ -20,8 +22,8 @@ class GenericDividerWidget extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            Theme.of(context).colorScheme.secondary,
-            Theme.of(context).colorScheme.tertiary,
+            inverse ? Theme.of(context).colorScheme.tertiary : Theme.of(context).colorScheme.secondary,
+            inverse ? Theme.of(context).colorScheme.secondary : Theme.of(context).colorScheme.tertiary,
           ],
           begin: vertical ? Alignment.topCenter : Alignment.centerLeft,
           end: vertical ? Alignment.bottomCenter : Alignment.centerRight,

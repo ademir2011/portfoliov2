@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:portfoliov2/app/modules/administracao/presenter/bloc/auth_bloc.dart';
-import 'package:portfoliov2/app/modules/home/widgets/generic_divider_widget.dart';
+import 'package:portfoliov2/shared/widgets/generic_divider_widget.dart';
 import 'package:portfoliov2/app/modules/portfolio/domain/entities/portfolio.dart';
 import 'package:portfoliov2/app/modules/portfolio/presenter/portfolio/bloc/portfolio_bloc.dart';
 import 'package:portfoliov2/app/modules/portfolio/presenter/portfolio/bloc/portfolio_event.dart';

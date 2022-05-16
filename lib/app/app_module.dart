@@ -11,6 +11,7 @@ import 'package:portfoliov2/app/modules/administracao/infra/repositories/auth_re
 import 'package:portfoliov2/app/modules/administracao/presenter/bloc/auth_bloc.dart';
 import 'package:portfoliov2/app/modules/home/pages/home_page.dart';
 import 'package:portfoliov2/app/modules/home/pages/sidemenu_page.dart';
+import 'package:portfoliov2/app/modules/trajectory/trajectory_module.dart';
 import 'package:portfoliov2/shared/widgets/top_menu_widget.dart';
 import 'package:portfoliov2/app/modules/portfolio/portfolio_module.dart';
 
@@ -50,6 +51,7 @@ class AppModule extends Module {
           duration: const Duration(seconds: 1),
         ),
         ModuleRoute('/portfolio', module: PortfolioModule()),
+        ModuleRoute('/trajectory', module: TrajectoryModule()),
         ModuleRoute('/administracao', module: AdministracaoModule()),
       ];
 }
