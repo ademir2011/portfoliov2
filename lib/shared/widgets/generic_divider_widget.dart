@@ -24,6 +24,8 @@ class GenericDividerWidget extends StatelessWidget {
           colors: [
             inverse ? Theme.of(context).colorScheme.tertiary : Theme.of(context).colorScheme.secondary,
             inverse ? Theme.of(context).colorScheme.secondary : Theme.of(context).colorScheme.tertiary,
+            // Theme.of(context).colorScheme.tertiary ,
+            // Theme.of(context).colorScheme.secondary,
           ],
           begin: vertical ? Alignment.topCenter : Alignment.centerLeft,
           end: vertical ? Alignment.bottomCenter : Alignment.centerRight,

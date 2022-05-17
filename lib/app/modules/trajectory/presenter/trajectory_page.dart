@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:portfoliov2/shared/widgets/generic_divider_widget.dart';
 import 'package:portfoliov2/shared/widgets/template_widget.dart';
@@ -27,6 +29,7 @@ class _TrajectoryPageState extends State<TrajectoryPage> {
       title: 'Trajetória',
       child: Scrollbar(
         controller: scrollController,
+        thumbVisibility: true,
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           controller: scrollController,
@@ -51,6 +54,7 @@ class _TrajectoryPageState extends State<TrajectoryPage> {
               ),
               GenericDividerWidget(
                 width: 2500,
+                inverse: true,
               ),
               SizedBox(
                 height: 300,
